@@ -1,0 +1,65 @@
+{
+  "permissions": {
+    "allow": [
+      "--- CORE DEV ---",
+      "Bash(*)",
+      "FileRead(*)",
+      "FileWrite(*)",
+      "FileCreate(*)",
+      "FileDelete(*)",
+
+      "--- PYTHON / ML ---",
+      "Python(*)",
+      "Bash(pip install:*)",
+      "Bash(pip list:*)",
+      "Bash(pip show:*)",
+
+      "--- SYSTEM CONTROL ---",
+      "ProcessStart(*)",
+      "ProcessStop(*)",
+      "ProcessRestart(*)",
+      "SystemTime",
+
+      "--- JUPYTER / RESEARCH ---",
+      "Bash(jupyter:*)",
+      "NotebookRead(*)",
+      "NotebookWrite(*)",
+
+      "--- DATA / FILE OPS ---",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(wc:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+
+      "--- GIT / VERSION CONTROL ---",
+      "Bash(git:*)",
+
+      "--- DATABASE ---",
+      "Bash(docker:*)",
+      "Bash(sqlite3:*)",
+
+      "--- NETWORK / RESEARCH ---",
+      "WebSearch",
+      "WebFetch(*)",
+
+      "--- LOGGING / MONITORING ---",
+      "Bash(ps:*)",
+      "Bash(top:*)",
+
+      "--- SAFE CLEANUP ---",
+      "Bash(rm:*)",
+
+      "--- SPECIAL PROJECT PATH ---",
+      "FileRead(C:/Users/2395568/OneDrive - Cognizant/Documents/GitHub/EXCHANGE/**)",
+      "FileWrite(C:/Users/2395568/OneDrive - Cognizant/Documents/GitHub/EXCHANGE/**)"
+    ],
+
+    "deny": [
+      "Bash(shutdown:*)",
+      "Bash(reboot:*)",
+      "Bash(format:*)",
+      "Bash(del /s /q C:\\:*)"
+    ]
+  }
+}
