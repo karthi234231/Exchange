@@ -1,0 +1,47 @@
+[Unit]
+Description=NSE AlgoTrader — Main Trading Process
+Documentation=https://github.com/your-username/EXCHANGE
+After=network-online.target docker.service algo-trading-alert-sink.service
+Wants=network-online.target
+Requires=docker.service
+# Alert sink must be running before main starts
+After=algo-trading-alert-sink.service
+
+[Service]
+Type=simple
+User=trader
+Group=trader
+WorkingDirectory=/home/trader/EXCHANGE/EXCHANGE
+
+# Activate venv; run in paper mode by default. Change --mode to 'live' after
+# all 13 go-live gates have passed.
+ExecStart=/home/trader/EXCHANGE/EXCHANGE/venv/bin/python -m algo_trading.main --mode paper
+
+# Graceful shutdown: SIGTERM first, then SIGKILL after 30s
+ExecStop=/bin/kill -TERM $MAINPID
+TimeoutStopSec=30
+
+# Restart on any failure (exit code != 0, signal, timeout)
+Restart=on-failure
+RestartSec=10
+# Don't restart more than 5 times in 5 minutes (prevents crash loop from burning API limits)
+StartLimitInterval=300
+StartLimitBurst=5
+
+# Standard I/O → systemd journal
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=algo-trading-main
+
+# Load secrets from .env (chmod 600 required)
+EnvironmentFile=/home/trader/EXCHANGE/EXCHANGE/.env
+
+# Slightly elevated scheduling priority (not real-time — no SEBI issues)
+Nice=-5
+
+# Resource limits
+LimitNOFILE=65536
+MemoryMax=12G
+
+[Install]
+WantedBy=multi-user.target

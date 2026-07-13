@@ -1,0 +1,142 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "algo-trading"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+# P2-FIX-94: Mode-specific optional extras so users don't need to install everything.
+#
+# Install for your mode:
+#   pip install -e ".[paper]"      — paper trading (no live broker required)
+#   pip install -e ".[live]"       — live trading (includes paper + broker dependencies)
+#   pip install -e ".[ml]"         — ML training pipeline (Optuna, MLflow, SHAP, Treelite)
+#   pip install -e ".[research]"   — research tools (all ML + DVC + VectorBT)
+#   pip install -e ".[fo]"         — F&O extras (NSE chain + margin tools)
+#   pip install -e ".[news-pipeline]"  — news intelligence pipeline
+
+# Minimal paper trading: all core dependencies without live broker secrets
+paper = [
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "python-dotenv>=1.0",
+    "questdb>=1.1",
+    "psycopg2-binary>=2.9",
+    "polars>=0.20",
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "pyarrow>=15.0",
+    "pandas-ta>=0.3",
+    "hmmlearn>=0.3",
+    "arch>=6.0",
+    "filterpy>=1.4",
+    "pyzmq>=25.0",
+    "msgpack>=1.0",
+    "python-telegram-bot>=21.0",
+    "pyotp>=2.9",
+    "structlog>=24.0",
+    "prometheus_client>=0.20",
+    "nse>=2.0",
+]
+
+# Live trading: paper + Shoonya broker (installed separately — not on PyPI)
+# Install Shoonya manually: pip install "git+https://github.com/Shoonya-Dev/ShoonyaApi-py.git"
+live = ["algo-trading[paper]"]
+
+# ML training: paper + model training stack
+ml = [
+    "algo-trading[paper]",
+    "xgboost>=2.0",
+    "lightgbm>=4.0",
+    "catboost>=1.2",
+    "scikit-learn>=1.4",
+    "river>=0.21",
+    "optuna>=3.6",
+    "mlflow>=2.12",
+    "shap>=0.45",
+    "matplotlib>=3.8",
+]
+
+# Research: full ML + additional research tools
+research = [
+    "algo-trading[ml]",
+    "scipy>=1.12",
+    "numba>=0.59",
+    "gymnasium>=0.29",
+    "stable-baselines3>=2.3",
+]
+
+# F&O extras: NSE option chain + margin tools
+fo = [
+    "algo-trading[live]",
+    "nselib>=0.2.0",
+]
+
+# pip install -e ".[news-pipeline]"
+news-pipeline = [
+    # Orchestration
+    "prefect>=2.14.0",
+    # Database
+    "asyncpg>=0.29.0",
+    "sqlalchemy[asyncio]>=2.0.0",
+    # Storage
+    "pyarrow>=14.0.0",
+    # API
+    "fastapi>=0.111.0",
+    "uvicorn[standard]>=0.29.0",
+    "httpx>=0.27.0",
+    # NLP
+    "spacy>=3.7.0",
+    "transformers>=4.40.0",
+    "torch>=2.2.0",          # torch CPU-only — no GPU needed
+    # Market data
+    "nselib>=0.2.0",
+    "jugaad-data>=0.26.0",
+    # Dashboard
+    "streamlit>=1.35.0",
+    "plotly>=5.22.0",
+    # News scraping (also in core requirements.txt)
+    "aiohttp>=3.9.0",
+    "feedparser>=6.0.0",
+    "rapidfuzz>=3.0.0",
+    "structlog>=24.0.0",
+    "pydantic>=2.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["algo_trading*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore = ["E501", "B008"]
+# P1-FIX-41: scripts/ and tests/ are no longer excluded — production scripts
+# and test code must be covered by lint to catch regressions.
+
+[tool.ruff.per-file-ignores]
+"tests/*" = ["S101", "PLR2004"]
+# Training/download scripts use broad-except and print for CLI feedback.
+"algo_trading/scripts/*" = ["B007", "C901"]
+
+[tool.mypy]
+python_version = "3.11"
+disallow_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
+ignore_missing_imports = true
+# P1-FIX-41: scripts/ included; tests/ use looser typing (assert, fixtures).
+exclude = ["tests/"]
+
+[tool.hypothesis]
+deriving = {filter_too_much = false}
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-v --tb=short"

@@ -1,0 +1,56 @@
+# Secrets — never commit
+.env
+*.key
+*.pem
+broker_token*.json
+shoonya_session*.json
+
+# Data — large files, use DVC
+data/
+*.csv
+*.parquet
+*.feather
+
+# Models — use DVC
+models/saved/
+models/*.pkl
+models/*.joblib
+models/*.so
+mlruns/
+.dvc/cache/
+
+# State files
+state/
+*.db
+*.sqlite
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/settings.json
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Windows OneDrive sync artifacts
+~$*

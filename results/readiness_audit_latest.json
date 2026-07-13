@@ -1,0 +1,59 @@
+{
+  "status": "BLOCKED",
+  "summary": {
+    "status_reason": "Backtest uses synthetic intraday data; Most symbols fail production gates",
+    "blockers": 2,
+    "warnings": 1,
+    "passes": 3,
+    "training_symbol_count": 20,
+    "scored_symbol_count": 20,
+    "feature_count_from_model_spec": 28,
+    "feature_count_from_inference": 28,
+    "strategy_symbols_passed": 1,
+    "strategy_symbols_total": 20
+  },
+  "findings": [
+    {
+      "check_id": "SYNTHETIC_INTRADAY_DATA",
+      "severity": "BLOCKER",
+      "title": "Backtest uses synthetic intraday data",
+      "detail": "The current 15-minute result describes Brownian Bridge disaggregation or synthetic bars.",
+      "action": "Do not use these metrics for live trading; rerun on real intraday bars."
+    },
+    {
+      "check_id": "FEATURE_SCHEMA_MATCH",
+      "severity": "PASS",
+      "title": "Model feature schema matches",
+      "detail": "Both artifacts list 28 features in the same order.",
+      "action": "Keep feature order immutable between training and inference."
+    },
+    {
+      "check_id": "SCORED_UNIVERSE_MATCH",
+      "severity": "PASS",
+      "title": "Scored universe matches training metadata",
+      "detail": "All 20 scored symbols appear in the model spec.",
+      "action": "Keep this check in the inference pipeline."
+    },
+    {
+      "check_id": "HOLD_PROBABILITY_COLLAPSE",
+      "severity": "WARN",
+      "title": "Average HOLD probability is near zero",
+      "detail": "Average HOLD probability is 0.000074, which suggests calibration or label-distribution issues.",
+      "action": "Review labels, class weights, probability calibration, and no-trade thresholds."
+    },
+    {
+      "check_id": "PROBABILITIES_NORMALIZED",
+      "severity": "PASS",
+      "title": "Probability rows are normalized",
+      "detail": "Checked 20 probability rows.",
+      "action": "Continue validating every probability artifact."
+    },
+    {
+      "check_id": "SYMBOL_GATES_FAILED",
+      "severity": "BLOCKER",
+      "title": "Most symbols fail production gates",
+      "detail": "1/20 symbols passed current strategy gates.",
+      "action": "Paper trade only passing symbols after real-data validation; reject failed symbols."
+    }
+  ]
+}

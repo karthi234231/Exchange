@@ -1,0 +1,124 @@
+# NSE AlgoTrader — Python dependencies
+# Install: pip install -r requirements.txt
+
+# ── Config & secrets ────────────────────────────────────────────────────────
+pydantic>=2.0
+pydantic-settings>=2.0        # BaseSettings with .env support
+python-dotenv>=1.0            # .env file loading fallback
+
+# ── Broker: Shoonya / Finvasia ───────────────────────────────────────────────
+# Install from GitHub — not on PyPI
+# pip install git+https://github.com/Shoonya-Dev/ShoonyaApi-py.git
+# NorenRestApiPy                # pinned: install manually (see above)
+
+# ── NSE live data (option chain, bhav copy) ───────────────────────────────────
+# NseIndiaApi: replaces deprecated nsepython; uses option-chain-v3 endpoint
+# Handles two-step cookie warm-up (GET nseindia.com → GET /market-data/...) automatically
+nse>=2.0                        # pip install nse (BennyThadikaran/NseIndiaApi)
+
+# ── Data feed: TrueData (Stage 2B+ only) ────────────────────────────────────
+# truedata-ws>=3.0             # uncomment when Stage 2B begins
+
+# ── Storage ──────────────────────────────────────────────────────────────────
+questdb>=1.1                   # Python client for QuestDB ILP (HTTP) + PG wire
+psycopg2-binary>=2.9           # PostgreSQL driver for QuestDB PG wire queries
+
+# ── Data processing ──────────────────────────────────────────────────────────
+polars>=0.20
+numpy>=1.26
+pandas>=2.2                   # required by pandas-ta; polars converts to pandas at boundary
+pyarrow>=15.0                 # Parquet read/write (used by polars for .parquet files)
+
+# ── Feature engineering ──────────────────────────────────────────────────────
+pandas-ta>=0.3
+hmmlearn>=0.3
+arch>=6.0
+filterpy>=1.4
+
+# ── Stage 3: microstructure features ─────────────────────────────────────────
+scipy>=1.12                   # Hawkes MLE (scipy.optimize.minimize), VPIN (scipy.stats.norm.cdf)
+numba>=0.59                   # OBI JIT compilation (already used in custom.py)
+msgpack>=1.0                  # ZMQ tick serialization
+
+# ── ML ───────────────────────────────────────────────────────────────────────
+xgboost>=2.0
+lightgbm>=4.0
+catboost>=1.2
+scikit-learn>=1.4
+# treelite>=4.0               # install separately — needs C compiler
+
+# ── Online learning ──────────────────────────────────────────────────────────
+river>=0.21
+
+# ── Experiment tracking ──────────────────────────────────────────────────────
+mlflow>=2.12
+# dvc>=3.0                    # install separately
+
+# ── Explainability ───────────────────────────────────────────────────────────
+shap>=0.45
+matplotlib>=3.8               # SHAP plots (already used in explainer.py)
+
+# ── Hyperparameter tuning ─────────────────────────────────────────────────────
+optuna>=3.6
+
+# ── Stage 4: reinforcement learning ──────────────────────────────────────────
+gymnasium>=0.29               # RL trading environment (OpenAI Gym successor)
+stable-baselines3>=2.3        # PPO agent (CPU mode)
+
+# ── Stage 4: NLP / sentiment (optional — heavy, deferred import) ─────────────
+# Install only when FinBERT sentiment is needed:
+#   pip install torch>=2.2 transformers>=4.40
+# NOTE: both are also required by news_pipeline — see [news_pipeline] section below
+transformers>=4.40            # FinBERT sentiment + news NLP pipeline
+torch>=2.2                    # torch CPU-only — no GPU needed
+
+# ── Messaging ────────────────────────────────────────────────────────────────
+pyzmq>=25.0
+
+# ── Alerts ───────────────────────────────────────────────────────────────────
+python-telegram-bot>=21.0     # async Telegram API
+
+# ── TOTP (for Shoonya 2FA) ───────────────────────────────────────────────────
+pyotp>=2.9
+
+# ── Logging ──────────────────────────────────────────────────────────────────
+structlog>=24.0               # structured logging (used throughout)
+
+# ── Observability ─────────────────────────────────────────────────────────────
+prometheus_client>=0.20       # Prometheus metrics and HTTP scrape endpoint (port 9090)
+
+# ── News intelligence (Stage 4: RSS scraping + article parsing) ───────────────
+feedparser>=6.0               # RSS/Atom feed parsing (NSE announcements, MoneyControl, ET)
+aiohttp>=3.9                  # Async HTTP client for NewsScraper polling loop
+rapidfuzz>=3.6                # Fuzzy symbol matching in SymbolMapper
+beautifulsoup4>=4.12          # HTML article body extraction
+lxml>=5.0                     # Fast XML/HTML parser backend for BeautifulSoup
+
+# ── [news_pipeline] — Enterprise NSE news pipeline dependencies ───────────────
+
+# Orchestration
+prefect>=2.14.0               # workflow orchestration for news scraping DAGs
+
+# Database
+asyncpg>=0.29.0               # async PostgreSQL driver
+sqlalchemy[asyncio]>=2.0.0    # async ORM / Core for article storage
+
+# API
+fastapi>=0.111.0              # REST API layer for news signals
+uvicorn[standard]>=0.29.0     # ASGI server (includes uvloop + httptools)
+httpx>=0.27.0                 # async HTTP client (used alongside aiohttp)
+
+# NLP
+spacy>=3.7.0                  # NER for company/ticker extraction from headlines
+
+# Market data (NSE-specific)
+nselib>=0.2.0                 # NSE corporate actions, announcements
+jugaad-data>=0.26.0           # historical NSE/BSE data feed
+
+# Dashboard / visualisation
+streamlit>=1.35.0             # news signal monitoring dashboard
+plotly>=5.22.0                # interactive charts in Streamlit dashboard
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+pytest>=8.0
+pytest-asyncio>=0.23

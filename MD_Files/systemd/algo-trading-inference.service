@@ -1,0 +1,29 @@
+[Unit]
+Description=Algo Trading — ML Inference Engine (ZMQ SUB→PUSH)
+Documentation=file:///home/trading/EXCHANGE/MD_Files/VPS_DEPLOYMENT.md
+After=network.target
+PartOf=algo-trading-main.service
+After=algo-trading-main.service
+
+[Service]
+Type=simple
+User=trading
+Group=trading
+WorkingDirectory=/home/trading/EXCHANGE
+EnvironmentFile=/home/trading/EXCHANGE/.env
+ExecStart=/home/trading/venv/bin/python -m algo_trading.models.inference_engine
+Restart=on-failure
+RestartSec=10s
+TimeoutStopSec=20s
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=algo-trading-inference
+MemoryMax=1G
+MemorySwapMax=256M
+LimitNOFILE=16384
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/home/trading/EXCHANGE /var/log/algo-trading
+
+[Install]
+# Started as part of algo-trading-main.service lifecycle, not independently.

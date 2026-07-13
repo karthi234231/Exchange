@@ -1,0 +1,1024 @@
+{
+  "note": "Scored latest row per available 15-min parquet using saved 15min pickle ensemble. This is historical/synthetic data, not live market data.",
+  "model_dir": "models\\trained\\15min",
+  "feature_count": 28,
+  "n_symbols_scored": 20,
+  "average_probabilities": {
+    "SELL": 0.360972,
+    "HOLD": 7.4e-05,
+    "BUY": 0.638955
+  },
+  "prediction_counts": {
+    "SELL": 6,
+    "HOLD": 0,
+    "BUY": 14
+  },
+  "top_buy": [
+    {
+      "symbol": "MARUTI",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 13421.0,
+      "sell_prob": 0.036747,
+      "hold_prob": 2.9e-05,
+      "buy_prob": 0.963224,
+      "prediction": "BUY",
+      "confidence": 0.963224,
+      "base_xgb": [
+        0.230593,
+        0.098993,
+        0.670413
+      ],
+      "base_lgb": [
+        0.191191,
+        0.00082,
+        0.807989
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "HINDUNILVR",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 2184.9,
+      "sell_prob": 0.056854,
+      "hold_prob": 0.000245,
+      "buy_prob": 0.942901,
+      "prediction": "BUY",
+      "confidence": 0.942901,
+      "base_xgb": [
+        0.27775,
+        0.049179,
+        0.673071
+      ],
+      "base_lgb": [
+        0.235256,
+        0.000589,
+        0.764154
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "WIPRO",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 180.18,
+      "sell_prob": 0.074053,
+      "hold_prob": 4.3e-05,
+      "buy_prob": 0.925905,
+      "prediction": "BUY",
+      "confidence": 0.925905,
+      "base_xgb": [
+        0.17537,
+        0.09879,
+        0.725841
+      ],
+      "base_lgb": [
+        0.194794,
+        0.001644,
+        0.803562
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "SUNPHARMA",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1862.9,
+      "sell_prob": 0.165584,
+      "hold_prob": 2.4e-05,
+      "buy_prob": 0.834392,
+      "prediction": "BUY",
+      "confidence": 0.834392,
+      "base_xgb": [
+        0.452859,
+        0.116225,
+        0.430916
+      ],
+      "base_lgb": [
+        0.353129,
+        0.003047,
+        0.643824
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "RELIANCE",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1326.5,
+      "sell_prob": 0.204059,
+      "hold_prob": 0.0,
+      "buy_prob": 0.795941,
+      "prediction": "BUY",
+      "confidence": 0.795941,
+      "base_xgb": [
+        0.284242,
+        0.354634,
+        0.361123
+      ],
+      "base_lgb": [
+        0.438653,
+        0.005213,
+        0.556134
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "BAJFINANCE",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 968.3,
+      "sell_prob": 0.215689,
+      "hold_prob": 3.6e-05,
+      "buy_prob": 0.784276,
+      "prediction": "BUY",
+      "confidence": 0.784276,
+      "base_xgb": [
+        0.413007,
+        0.119882,
+        0.467111
+      ],
+      "base_lgb": [
+        0.452232,
+        0.002045,
+        0.545723
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "LT",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 4201.3,
+      "sell_prob": 0.216407,
+      "hold_prob": 3.6e-05,
+      "buy_prob": 0.783556,
+      "prediction": "BUY",
+      "confidence": 0.783556,
+      "base_xgb": [
+        0.268916,
+        0.104305,
+        0.626778
+      ],
+      "base_lgb": [
+        0.23381,
+        0.001738,
+        0.764452
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "INFY",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1065.4,
+      "sell_prob": 0.223753,
+      "hold_prob": 0.0,
+      "buy_prob": 0.776247,
+      "prediction": "BUY",
+      "confidence": 0.776247,
+      "base_xgb": [
+        0.224527,
+        0.350141,
+        0.425332
+      ],
+      "base_lgb": [
+        0.398984,
+        0.007422,
+        0.593594
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 402.15,
+      "sell_prob": 0.223935,
+      "hold_prob": 9.2e-05,
+      "buy_prob": 0.775972,
+      "prediction": "BUY",
+      "confidence": 0.775972,
+      "base_xgb": [
+        0.371219,
+        0.094092,
+        0.534689
+      ],
+      "base_lgb": [
+        0.415008,
+        0.001593,
+        0.583399
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "TCS",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 2127.8,
+      "sell_prob": 0.227995,
+      "hold_prob": 0.000276,
+      "buy_prob": 0.77173,
+      "prediction": "BUY",
+      "confidence": 0.77173,
+      "base_xgb": [
+        0.279783,
+        0.063558,
+        0.656659
+      ],
+      "base_lgb": [
+        0.338068,
+        0.000892,
+        0.66104
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  ],
+  "top_sell": [
+    {
+      "symbol": "ONGC",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 245.45,
+      "sell_prob": 0.897473,
+      "hold_prob": 2e-06,
+      "buy_prob": 0.102525,
+      "prediction": "SELL",
+      "confidence": 0.897473,
+      "base_xgb": [
+        0.266606,
+        0.183581,
+        0.549813
+      ],
+      "base_lgb": [
+        0.468799,
+        0.005358,
+        0.525843
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "AXISBANK",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1358.6,
+      "sell_prob": 0.770998,
+      "hold_prob": 1e-06,
+      "buy_prob": 0.229001,
+      "prediction": "SELL",
+      "confidence": 0.770998,
+      "base_xgb": [
+        0.336538,
+        0.206197,
+        0.457265
+      ],
+      "base_lgb": [
+        0.471896,
+        0.003381,
+        0.524723
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "HDFCBANK",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 786.4,
+      "sell_prob": 0.728361,
+      "hold_prob": 1.3e-05,
+      "buy_prob": 0.271626,
+      "prediction": "SELL",
+      "confidence": 0.728361,
+      "base_xgb": [
+        0.439693,
+        0.138338,
+        0.421969
+      ],
+      "base_lgb": [
+        0.509156,
+        0.002979,
+        0.487865
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "TATASTEEL",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 198.97,
+      "sell_prob": 0.674731,
+      "hold_prob": 9.3e-05,
+      "buy_prob": 0.325176,
+      "prediction": "SELL",
+      "confidence": 0.674731,
+      "base_xgb": [
+        0.381948,
+        0.085453,
+        0.532599
+      ],
+      "base_lgb": [
+        0.432402,
+        0.001095,
+        0.566503
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "SBIN",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1040.75,
+      "sell_prob": 0.590831,
+      "hold_prob": 3e-06,
+      "buy_prob": 0.409166,
+      "prediction": "SELL",
+      "confidence": 0.590831,
+      "base_xgb": [
+        0.418705,
+        0.188367,
+        0.392928
+      ],
+      "base_lgb": [
+        0.471431,
+        0.00984,
+        0.51873
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "TATAMOTORS",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 361.5,
+      "sell_prob": 0.590081,
+      "hold_prob": 0.0,
+      "buy_prob": 0.409919,
+      "prediction": "SELL",
+      "confidence": 0.590081,
+      "base_xgb": [
+        0.194082,
+        0.32857,
+        0.477348
+      ],
+      "base_lgb": [
+        0.359403,
+        0.0065,
+        0.634097
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "TITAN",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 4372.5,
+      "sell_prob": 0.42743,
+      "hold_prob": 4.5e-05,
+      "buy_prob": 0.572525,
+      "prediction": "BUY",
+      "confidence": 0.572525,
+      "base_xgb": [
+        0.319571,
+        0.104791,
+        0.575638
+      ],
+      "base_lgb": [
+        0.331498,
+        0.001674,
+        0.666829
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1827.2,
+      "sell_prob": 0.365134,
+      "hold_prob": 0.0,
+      "buy_prob": 0.634866,
+      "prediction": "BUY",
+      "confidence": 0.634866,
+      "base_xgb": [
+        0.270876,
+        0.421293,
+        0.307832
+      ],
+      "base_lgb": [
+        0.378626,
+        0.039483,
+        0.581891
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 2674.0,
+      "sell_prob": 0.26637,
+      "hold_prob": 0.000541,
+      "buy_prob": 0.73309,
+      "prediction": "BUY",
+      "confidence": 0.73309,
+      "base_xgb": [
+        0.254894,
+        0.046999,
+        0.698107
+      ],
+      "base_lgb": [
+        0.326142,
+        0.00081,
+        0.673048
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "ICICIBANK",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1352.4,
+      "sell_prob": 0.262946,
+      "hold_prob": 0.0,
+      "buy_prob": 0.737054,
+      "prediction": "BUY",
+      "confidence": 0.737054,
+      "base_xgb": [
+        0.18727,
+        0.366841,
+        0.445889
+      ],
+      "base_lgb": [
+        0.279187,
+        0.016665,
+        0.704149
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "all_rows": [
+    {
+      "symbol": "TCS",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 2127.8,
+      "sell_prob": 0.227995,
+      "hold_prob": 0.000276,
+      "buy_prob": 0.77173,
+      "prediction": "BUY",
+      "confidence": 0.77173,
+      "base_xgb": [
+        0.279783,
+        0.063558,
+        0.656659
+      ],
+      "base_lgb": [
+        0.338068,
+        0.000892,
+        0.66104
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "ICICIBANK",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1352.4,
+      "sell_prob": 0.262946,
+      "hold_prob": 0.0,
+      "buy_prob": 0.737054,
+      "prediction": "BUY",
+      "confidence": 0.737054,
+      "base_xgb": [
+        0.18727,
+        0.366841,
+        0.445889
+      ],
+      "base_lgb": [
+        0.279187,
+        0.016665,
+        0.704149
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1827.2,
+      "sell_prob": 0.365134,
+      "hold_prob": 0.0,
+      "buy_prob": 0.634866,
+      "prediction": "BUY",
+      "confidence": 0.634866,
+      "base_xgb": [
+        0.270876,
+        0.421293,
+        0.307832
+      ],
+      "base_lgb": [
+        0.378626,
+        0.039483,
+        0.581891
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 2674.0,
+      "sell_prob": 0.26637,
+      "hold_prob": 0.000541,
+      "buy_prob": 0.73309,
+      "prediction": "BUY",
+      "confidence": 0.73309,
+      "base_xgb": [
+        0.254894,
+        0.046999,
+        0.698107
+      ],
+      "base_lgb": [
+        0.326142,
+        0.00081,
+        0.673048
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "AXISBANK",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1358.6,
+      "sell_prob": 0.770998,
+      "hold_prob": 1e-06,
+      "buy_prob": 0.229001,
+      "prediction": "SELL",
+      "confidence": 0.770998,
+      "base_xgb": [
+        0.336538,
+        0.206197,
+        0.457265
+      ],
+      "base_lgb": [
+        0.471896,
+        0.003381,
+        0.524723
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "BAJFINANCE",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 968.3,
+      "sell_prob": 0.215689,
+      "hold_prob": 3.6e-05,
+      "buy_prob": 0.784276,
+      "prediction": "BUY",
+      "confidence": 0.784276,
+      "base_xgb": [
+        0.413007,
+        0.119882,
+        0.467111
+      ],
+      "base_lgb": [
+        0.452232,
+        0.002045,
+        0.545723
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "HDFCBANK",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 786.4,
+      "sell_prob": 0.728361,
+      "hold_prob": 1.3e-05,
+      "buy_prob": 0.271626,
+      "prediction": "SELL",
+      "confidence": 0.728361,
+      "base_xgb": [
+        0.439693,
+        0.138338,
+        0.421969
+      ],
+      "base_lgb": [
+        0.509156,
+        0.002979,
+        0.487865
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "HINDUNILVR",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 2184.9,
+      "sell_prob": 0.056854,
+      "hold_prob": 0.000245,
+      "buy_prob": 0.942901,
+      "prediction": "BUY",
+      "confidence": 0.942901,
+      "base_xgb": [
+        0.27775,
+        0.049179,
+        0.673071
+      ],
+      "base_lgb": [
+        0.235256,
+        0.000589,
+        0.764154
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "INFY",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1065.4,
+      "sell_prob": 0.223753,
+      "hold_prob": 0.0,
+      "buy_prob": 0.776247,
+      "prediction": "BUY",
+      "confidence": 0.776247,
+      "base_xgb": [
+        0.224527,
+        0.350141,
+        0.425332
+      ],
+      "base_lgb": [
+        0.398984,
+        0.007422,
+        0.593594
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 402.15,
+      "sell_prob": 0.223935,
+      "hold_prob": 9.2e-05,
+      "buy_prob": 0.775972,
+      "prediction": "BUY",
+      "confidence": 0.775972,
+      "base_xgb": [
+        0.371219,
+        0.094092,
+        0.534689
+      ],
+      "base_lgb": [
+        0.415008,
+        0.001593,
+        0.583399
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "LT",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 4201.3,
+      "sell_prob": 0.216407,
+      "hold_prob": 3.6e-05,
+      "buy_prob": 0.783556,
+      "prediction": "BUY",
+      "confidence": 0.783556,
+      "base_xgb": [
+        0.268916,
+        0.104305,
+        0.626778
+      ],
+      "base_lgb": [
+        0.23381,
+        0.001738,
+        0.764452
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "MARUTI",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 13421.0,
+      "sell_prob": 0.036747,
+      "hold_prob": 2.9e-05,
+      "buy_prob": 0.963224,
+      "prediction": "BUY",
+      "confidence": 0.963224,
+      "base_xgb": [
+        0.230593,
+        0.098993,
+        0.670413
+      ],
+      "base_lgb": [
+        0.191191,
+        0.00082,
+        0.807989
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "ONGC",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 245.45,
+      "sell_prob": 0.897473,
+      "hold_prob": 2e-06,
+      "buy_prob": 0.102525,
+      "prediction": "SELL",
+      "confidence": 0.897473,
+      "base_xgb": [
+        0.266606,
+        0.183581,
+        0.549813
+      ],
+      "base_lgb": [
+        0.468799,
+        0.005358,
+        0.525843
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "RELIANCE",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1326.5,
+      "sell_prob": 0.204059,
+      "hold_prob": 0.0,
+      "buy_prob": 0.795941,
+      "prediction": "BUY",
+      "confidence": 0.795941,
+      "base_xgb": [
+        0.284242,
+        0.354634,
+        0.361123
+      ],
+      "base_lgb": [
+        0.438653,
+        0.005213,
+        0.556134
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "symbol": "SBIN",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1040.75,
+      "sell_prob": 0.590831,
+      "hold_prob": 3e-06,
+      "buy_prob": 0.409166,
+      "prediction": "SELL",
+      "confidence": 0.590831,
+      "base_xgb": [
+        0.418705,
+        0.188367,
+        0.392928
+      ],
+      "base_lgb": [
+        0.471431,
+        0.00984,
+        0.51873
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "SUNPHARMA",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 1862.9,
+      "sell_prob": 0.165584,
+      "hold_prob": 2.4e-05,
+      "buy_prob": 0.834392,
+      "prediction": "BUY",
+      "confidence": 0.834392,
+      "base_xgb": [
+        0.452859,
+        0.116225,
+        0.430916
+      ],
+      "base_lgb": [
+        0.353129,
+        0.003047,
+        0.643824
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "TATAMOTORS",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 361.5,
+      "sell_prob": 0.590081,
+      "hold_prob": 0.0,
+      "buy_prob": 0.409919,
+      "prediction": "SELL",
+      "confidence": 0.590081,
+      "base_xgb": [
+        0.194082,
+        0.32857,
+        0.477348
+      ],
+      "base_lgb": [
+        0.359403,
+        0.0065,
+        0.634097
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "TATASTEEL",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 198.97,
+      "sell_prob": 0.674731,
+      "hold_prob": 9.3e-05,
+      "buy_prob": 0.325176,
+      "prediction": "SELL",
+      "confidence": 0.674731,
+      "base_xgb": [
+        0.381948,
+        0.085453,
+        0.532599
+      ],
+      "base_lgb": [
+        0.432402,
+        0.001095,
+        0.566503
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "TITAN",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 4372.5,
+      "sell_prob": 0.42743,
+      "hold_prob": 4.5e-05,
+      "buy_prob": 0.572525,
+      "prediction": "BUY",
+      "confidence": 0.572525,
+      "base_xgb": [
+        0.319571,
+        0.104791,
+        0.575638
+      ],
+      "base_lgb": [
+        0.331498,
+        0.001674,
+        0.666829
+      ],
+      "base_mlp": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "symbol": "WIPRO",
+      "timestamp": "2026-06-21 15:15:00",
+      "close": 180.18,
+      "sell_prob": 0.074053,
+      "hold_prob": 4.3e-05,
+      "buy_prob": 0.925905,
+      "prediction": "BUY",
+      "confidence": 0.925905,
+      "base_xgb": [
+        0.17537,
+        0.09879,
+        0.725841
+      ],
+      "base_lgb": [
+        0.194794,
+        0.001644,
+        0.803562
+      ],
+      "base_mlp": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  ],
+  "errors": [],
+  "n_errors": 0
+}

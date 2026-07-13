@@ -1,0 +1,468 @@
+{
+  "generated_at": "2026-06-25T19:32:50.265340+05:30",
+  "data_source": "Brownian Bridge disaggregation of 5-year daily data",
+  "bar_type": "synthetic 15-min (25 bars/day, NSE session 09:15-15:30 IST)",
+  "symbols_processed": [
+    "RELIANCE",
+    "TCS",
+    "HDFCBANK",
+    "INFY",
+    "ICICIBANK",
+    "SBIN",
+    "HINDUNILVR",
+    "BAJFINANCE",
+    "KOTAKBANK",
+    "LT",
+    "MARUTI",
+    "ASIANPAINT",
+    "SUNPHARMA",
+    "TATAMOTORS",
+    "TATASTEEL",
+    "ADANIPORTS",
+    "ONGC",
+    "TITAN",
+    "WIPRO",
+    "AXISBANK"
+  ],
+  "symbols_with_features": [
+    "RELIANCE",
+    "TCS",
+    "HDFCBANK",
+    "INFY",
+    "ICICIBANK",
+    "SBIN",
+    "HINDUNILVR",
+    "BAJFINANCE",
+    "KOTAKBANK",
+    "LT",
+    "MARUTI",
+    "ASIANPAINT",
+    "SUNPHARMA",
+    "TATAMOTORS",
+    "TATASTEEL",
+    "ADANIPORTS",
+    "ONGC",
+    "TITAN",
+    "WIPRO",
+    "AXISBANK"
+  ],
+  "n_symbols_backtested": 20,
+  "ema_baseline": {
+    "total_trades": 21353,
+    "profitability_pct": 3.66,
+    "total_net_pnl_inr": 365534.8,
+    "symbols_passed_gate": [
+      "ADANIPORTS"
+    ]
+  },
+  "per_symbol_backtest": {
+    "RELIANCE": {
+      "total_trades": 978,
+      "win_rate": 0.5317,
+      "profit_factor": 2.093,
+      "sharpe_ratio": 20.6175,
+      "max_drawdown": 0.0072,
+      "total_net_pnl": 51588.67,
+      "passes_gate": false,
+      "gate_failures": [
+        "Fold 0: only 192 trades (need 200)",
+        "Fold 1: only 178 trades (need 200)",
+        "Fold 2: only 197 trades (need 200)"
+      ]
+    },
+    "TCS": {
+      "total_trades": 1007,
+      "win_rate": 0.6087,
+      "profit_factor": 2.537,
+      "sharpe_ratio": 27.6426,
+      "max_drawdown": 0.0021,
+      "total_net_pnl": 59300.03,
+      "passes_gate": false,
+      "gate_failures": [
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 191 trades (need 200)",
+        "Fold 1: only 191 trades (need 200)",
+        "Fold 4: only 193 trades (need 200)"
+      ]
+    },
+    "HDFCBANK": {
+      "total_trades": 1031,
+      "win_rate": 0.4539,
+      "profit_factor": 0.6156,
+      "sharpe_ratio": -4.0691,
+      "max_drawdown": 0.1084,
+      "total_net_pnl": -43281.99,
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -4.069 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.616 < 1.2",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 2: only 190 trades (need 200)"
+      ]
+    },
+    "INFY": {
+      "total_trades": 1009,
+      "win_rate": 0.4936,
+      "profit_factor": 1.5499,
+      "sharpe_ratio": 13.5565,
+      "max_drawdown": 0.0067,
+      "total_net_pnl": 31983.71,
+      "passes_gate": false,
+      "gate_failures": [
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 199 trades (need 200)",
+        "Fold 4: only 192 trades (need 200)"
+      ]
+    },
+    "ICICIBANK": {
+      "total_trades": 1134,
+      "win_rate": 0.351,
+      "profit_factor": 0.7751,
+      "sharpe_ratio": -7.7011,
+      "max_drawdown": 0.0471,
+      "total_net_pnl": -19073.82,
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -7.701 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.775 < 1.2",
+        "Win rate 35.1% < 40%",
+        "Positive Sharpe in only 0/3 regimes (need 2)",
+        "Fold 4: only 195 trades (need 200)"
+      ]
+    },
+    "SBIN": {
+      "total_trades": 1106,
+      "win_rate": 0.3255,
+      "profit_factor": 0.8827,
+      "sharpe_ratio": -3.3303,
+      "max_drawdown": 0.0348,
+      "total_net_pnl": -11598.57,
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -3.330 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.883 < 1.2",
+        "Win rate 32.5% < 40%",
+        "Positive Sharpe in only 0/3 regimes (need 2)"
+      ]
+    },
+    "HINDUNILVR": {
+      "total_trades": 1053,
+      "win_rate": 0.5575,
+      "profit_factor": 2.2127,
+      "sharpe_ratio": 22.4198,
+      "max_drawdown": 0.0026,
+      "total_net_pnl": 58096.8,
+      "passes_gate": false,
+      "gate_failures": [
+        "Positive Sharpe in only 1/3 regimes (need 2)"
+      ]
+    },
+    "BAJFINANCE": {
+      "total_trades": 963,
+      "win_rate": 0.6625,
+      "profit_factor": 3.5506,
+      "sharpe_ratio": 36.0789,
+      "max_drawdown": 0.0048,
+      "total_net_pnl": 93653.5,
+      "passes_gate": false,
+      "gate_failures": [
+        "Fold 0: only 196 trades (need 200)",
+        "Fold 1: only 182 trades (need 200)",
+        "Fold 2: only 193 trades (need 200)",
+        "Fold 3: only 183 trades (need 200)"
+      ]
+    },
+    "KOTAKBANK": {
+      "total_trades": 1085,
+      "win_rate": 0.4793,
+      "profit_factor": 1.619,
+      "sharpe_ratio": 13.9584,
+      "max_drawdown": 0.0145,
+      "total_net_pnl": 39894.4,
+      "passes_gate": false,
+      "gate_failures": [
+        "Positive Sharpe in only 1/3 regimes (need 2)"
+      ]
+    },
+    "LT": {
+      "total_trades": 992,
+      "win_rate": 0.6099,
+      "profit_factor": 3.082,
+      "sharpe_ratio": 30.2673,
+      "max_drawdown": 0.0016,
+      "total_net_pnl": 80512.55,
+      "passes_gate": false,
+      "gate_failures": [
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 198 trades (need 200)",
+        "Fold 1: only 194 trades (need 200)",
+        "Fold 2: only 196 trades (need 200)",
+        "Fold 4: only 196 trades (need 200)"
+      ]
+    },
+    "MARUTI": {
+      "total_trades": 982,
+      "win_rate": 0.72,
+      "profit_factor": 4.4258,
+      "sharpe_ratio": 41.6089,
+      "max_drawdown": 0.001,
+      "total_net_pnl": 83088.4,
+      "passes_gate": false,
+      "gate_failures": [
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 182 trades (need 200)",
+        "Fold 3: only 189 trades (need 200)",
+        "Fold 4: only 198 trades (need 200)"
+      ]
+    },
+    "ASIANPAINT": {
+      "total_trades": 1005,
+      "win_rate": 0.5781,
+      "profit_factor": 2.4935,
+      "sharpe_ratio": 26.5912,
+      "max_drawdown": 0.0029,
+      "total_net_pnl": 65965.15,
+      "passes_gate": false,
+      "gate_failures": [
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 3: only 188 trades (need 200)",
+        "Fold 4: only 188 trades (need 200)"
+      ]
+    },
+    "SUNPHARMA": {
+      "total_trades": 1161,
+      "win_rate": 0.4513,
+      "profit_factor": 1.3363,
+      "sharpe_ratio": 8.6018,
+      "max_drawdown": 0.0173,
+      "total_net_pnl": 26020.83,
+      "passes_gate": false,
+      "gate_failures": [
+        "Positive Sharpe in only 1/3 regimes (need 2)"
+      ]
+    },
+    "TATAMOTORS": {
+      "total_trades": 999,
+      "win_rate": 0.3714,
+      "profit_factor": 1.0792,
+      "sharpe_ratio": 2.1348,
+      "max_drawdown": 0.0272,
+      "total_net_pnl": 7230.39,
+      "passes_gate": false,
+      "gate_failures": [
+        "Profit factor 1.079 < 1.2",
+        "Win rate 37.1% < 40%",
+        "Fold 0: only 198 trades (need 200)",
+        "Fold 3: only 188 trades (need 200)"
+      ]
+    },
+    "TATASTEEL": {
+      "total_trades": 1185,
+      "win_rate": 0.2093,
+      "profit_factor": 0.3864,
+      "sharpe_ratio": -28.0646,
+      "max_drawdown": 0.2234,
+      "total_net_pnl": -99404.66,
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -28.065 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.386 < 1.2",
+        "Win rate 20.9% < 40%",
+        "Positive Sharpe in only 0/3 regimes (need 2)",
+        "Fold 0: only 184 trades (need 200)"
+      ]
+    },
+    "ADANIPORTS": {
+      "total_trades": 1084,
+      "win_rate": 0.4751,
+      "profit_factor": 2.045,
+      "sharpe_ratio": 16.6181,
+      "max_drawdown": 0.005,
+      "total_net_pnl": 83170.31,
+      "passes_gate": true,
+      "gate_failures": []
+    },
+    "ONGC": {
+      "total_trades": 1299,
+      "win_rate": 0.1732,
+      "profit_factor": 0.2484,
+      "sharpe_ratio": -37.2549,
+      "max_drawdown": 0.2477,
+      "total_net_pnl": -142194.69,
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -37.255 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.248 < 1.2",
+        "Win rate 17.3% < 40%"
+      ]
+    },
+    "TITAN": {
+      "total_trades": 1015,
+      "win_rate": 0.6039,
+      "profit_factor": 2.6911,
+      "sharpe_ratio": 28.3179,
+      "max_drawdown": 0.0025,
+      "total_net_pnl": 76832.69,
+      "passes_gate": false,
+      "gate_failures": [
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 197 trades (need 200)",
+        "Fold 4: only 198 trades (need 200)"
+      ]
+    },
+    "WIPRO": {
+      "total_trades": 1181,
+      "win_rate": 0.2354,
+      "profit_factor": 0.3964,
+      "sharpe_ratio": -27.5251,
+      "max_drawdown": 0.1538,
+      "total_net_pnl": -81815.01,
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -27.525 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.396 < 1.2",
+        "Win rate 23.5% < 40%"
+      ]
+    },
+    "AXISBANK": {
+      "total_trades": 1084,
+      "win_rate": 0.3976,
+      "profit_factor": 1.0687,
+      "sharpe_ratio": 1.9577,
+      "max_drawdown": 0.0181,
+      "total_net_pnl": 5566.11,
+      "passes_gate": false,
+      "gate_failures": [
+        "Profit factor 1.069 < 1.2",
+        "Win rate 39.8% < 40%",
+        "Positive Sharpe in only 1/3 regimes (need 2)"
+      ]
+    }
+  },
+  "ml_dl_training": {
+    "xgboost": {
+      "accuracy": 0.7325,
+      "top5_features": [
+        {
+          "feature": "feat_ha_dir",
+          "importance": 0.0985
+        },
+        {
+          "feature": "feat_rvol5",
+          "importance": 0.0966
+        },
+        {
+          "feature": "feat_rvol20",
+          "importance": 0.0929
+        },
+        {
+          "feature": "feat_mins_to_close",
+          "importance": 0.0743
+        },
+        {
+          "feature": "feat_lag_ret_1",
+          "importance": 0.0637
+        }
+      ]
+    },
+    "lightgbm": {
+      "accuracy": 0.7569
+    },
+    "mlp_deep_nn": {
+      "architecture": "Dense(256,relu)->Dense(128,relu)->Dense(64,relu)->Dense(3,softmax)",
+      "accuracy": 0.7317,
+      "epochs": 78
+    },
+    "stacked_ensemble": {
+      "accuracy": 0.773,
+      "base_models": [
+        "xgboost",
+        "lightgbm",
+        "mlp_deep_nn"
+      ],
+      "meta_learner": "LogisticRegression"
+    },
+    "classification_report": {
+      "SELL(-1)": {
+        "precision": 0.78,
+        "recall": 0.767,
+        "f1": 0.773
+      },
+      "HOLD(0)": {
+        "precision": 0.857,
+        "recall": 0.625,
+        "f1": 0.723
+      },
+      "BUY(+1)": {
+        "precision": 0.764,
+        "recall": 0.785,
+        "f1": 0.774
+      },
+      "macro avg": {
+        "precision": 0.8,
+        "recall": 0.726,
+        "f1": 0.757
+      },
+      "weighted avg": {
+        "precision": 0.774,
+        "recall": 0.773,
+        "f1": 0.773
+      }
+    },
+    "n_train": 1255330,
+    "n_test": 623785,
+    "n_features": 28,
+    "feature_names": [
+      "feat_rsi",
+      "feat_macd_hist",
+      "feat_bb_pct_b",
+      "feat_bb_width",
+      "feat_atr",
+      "feat_adx",
+      "feat_stoch_k",
+      "feat_stoch_d",
+      "feat_obv",
+      "feat_supertrend_dir",
+      "feat_ema_cross",
+      "feat_ichimoku_pos",
+      "feat_vwap_dev",
+      "feat_ha_dir",
+      "feat_pivot_dist",
+      "feat_lag_ret_1",
+      "feat_lag_ret_2",
+      "feat_lag_ret_3",
+      "feat_lag_ret_5",
+      "feat_lag_ret_10",
+      "feat_rvol5",
+      "feat_rvol20",
+      "feat_vol_norm",
+      "feat_vol_chg",
+      "feat_obv_norm",
+      "feat_session_prog",
+      "feat_day_of_week",
+      "feat_mins_to_close"
+    ],
+    "model_dir": "C:\\Users\\2395568\\OneDrive - Cognizant\\Documents\\GitHub\\EXCHANGE\\EXCHANGE\\models\\trained\\15min",
+    "lstm_pytorch": {
+      "note": "torch not installed \u2014 run: pip install torch"
+    },
+    "tcn_pytorch": {
+      "note": "torch not installed \u2014 run: pip install torch"
+    }
+  },
+  "methodology": {
+    "disaggregation": "Brownian Bridge \u2014 path from O to C constrained by H/L; volume via U-shaped intraday profile",
+    "bars_per_symbol": "~31,250 (5yr x 250 days x 25 bars)",
+    "features": 28,
+    "labeling": "Triple-barrier {-1,0,+1}",
+    "walk_forward": "5-fold, purge=77 bars, embargo=5 bars",
+    "models": [
+      "XGBoost",
+      "LightGBM",
+      "MLP-256-128-64 (Deep NN)",
+      "Stacked-LR",
+      "LSTM-BiLSTM (PyTorch, if installed)",
+      "TCN (PyTorch, if installed)"
+    ]
+  }
+}

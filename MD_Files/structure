@@ -1,0 +1,374 @@
+EXCHANGE/                                   # Repository root
+│
+├── algo_trading/                           # Main Python source package
+│   ├── __init__.py
+│   ├── config.py                           # All configuration dataclasses
+│   ├── logging_setup.py                    # SHIM — re-exports from core.logging
+│   ├── market_calendar.py                  # SHIM — re-exports from core.calendar
+│   ├── main.py                             # Entry point — 3-process launcher
+│   ├── readiness_audit.py                  # Pre-live readiness checker
+│   │
+│   ├── core/                               # Shared infrastructure (new module)
+│   │   ├── __init__.py
+│   │   ├── logging.py                      # structlog + stdlib config (was logging_setup.py)
+│   │   └── calendar.py                     # NSE calendar + session utils (was market_calendar.py)
+│   │
+│   ├── alerts/                             # Module 7: Monitoring / Alerts
+│   │   ├── alert_sink.py                   # ZMQ PULL worker — sole Telegram caller [ARCH-FIX-3]
+│   │   └── telegram_bot.py                 # Non-blocking ZMQ PUSH sender [ARCH-FIX-3]
+│   │
+│   ├── backtest/                           # Backtesting harness
+│   │   └── runner.py                       # Walk-forward backtest with full cost model
+│   │
+│   ├── data/                               # Module 1: Data Pipeline
+│   │   ├── broker_base.py                  # Abstract broker interface
+│   │   ├── broker_shoonya.py               # Shoonya/Finvasia — EXECUTION ONLY [CDR-3B-C24]
+│   │   ├── bulk_deal_feed.py               # NSE bulk deal data feed
+│   │   ├── candle_store.py                 # QuestDB candle storage + VolumeBarAggregator [P2I-2.3]
+│   │   ├── fda_anda_feed.py                # FDA/ANDA drug approval event feed
+│   │   ├── fii_dii_feed.py                 # FII/DII flow data feed
+│   │   ├── fo_chain.py                     # F&O options chain data loader
+│   │   ├── instrument_master.py            # NSE instrument master download/cache
+│   │   ├── integrity_guard.py              # TickValidator + DataQualityMonitor [SURV-2]
+│   │   ├── market_context.py               # Market-wide context data aggregator
+│   │   ├── pledging_downloader.py          # NSE pledging data downloader
+│   │   ├── pledging_filter.py              # Filter high-pledging stocks
+│   │   ├── preopen_imbalance.py            # Pre-open order imbalance signals
+│   │   ├── quote_service.py                # Live quote service wrapper
+│   │   ├── ring_buffer.py                  # Numpy structured ring buffer [P2I-2.2]
+│   │   ├── system_state.py                 # LiveSystemState persistence + StartupReconciler [SURV-6]
+│   │   ├── tick_aggregator.py              # Tick-to-bar aggregation
+│   │   ├── truedata_feed.py                # TrueData unthrottled L2 WebSocket [ARCH-FIX-1] Stage 2+
+│   │   └── websocket_feed.py               # ZMQ DataIngestor PUB:5555 + SequenceGuard [SURV-7]
+│   │
+│   ├── execution/                          # Module 6: Execution Layer
+│   │   ├── exception_policy.py             # Exception handling / retry policy
+│   │   ├── latency_profiler.py             # Tick→order→ack latency measurement [SURV-3]
+│   │   ├── order_executor.py               # Order execution manager + DualLockRateLimiter [ARCH-FIX-5]
+│   │   ├── order_fsm.py                    # Order FSM state machine [SURV-10]
+│   │   ├── rate_limiter.py                 # Token bucket rate limiter (8 OPS global)
+│   │   ├── signal_hierarchy.py             # RiskMgr→HMM→ML→ADWIN priority [SURV-4]
+│   │   ├── tca.py                          # Transaction cost analysis
+│   │   └── trade_logger.py                 # QuestDB trade log + P&L attribution
+│   │
+│   ├── features/                           # Module 2: Feature Engine
+│   │   ├── custom.py                       # Volume Clock, numba OBI, VWAP, ToD, spread [P2I-2.4]
+│   │   ├── engine.py                       # FeatureComputer ZMQ SUB/PUB:5556 [P2I-2.1]
+│   │   ├── fo_features.py                  # F&O-specific features (IV, Greeks, OI)
+│   │   ├── hawkes.py                       # Hawkes process (Stage 3+ only, sub-min bars) [SURV-9]
+│   │   ├── microstructure.py               # VPIN filter + Avellaneda-Stoikov [SURV-9]
+│   │   ├── registry.py                     # Feature registration / discovery
+│   │   ├── stage_router.py                 # Routes feature computation by stage
+│   │   ├── statistical.py                  # HMM, Kalman, GARCH, autocorrelation
+│   │   ├── technical.py                    # pandas-ta indicators (features 1–23)
+│   │   └── tfi.py                          # Trade flow imbalance (Stage 3+, tick-level) [SURV-9]
+│   │
+│   ├── fo/                                 # F&O (Futures & Options) module
+│   │   ├── contracts.py                    # Contract specification helpers
+│   │   ├── cost_model.py                   # F&O-specific cost model (STT, lot size)
+│   │   ├── execution.py                    # F&O order execution (spread orders, legging)
+│   │   ├── expiry.py                       # Expiry schedule, weekly/monthly detection
+│   │   ├── greeks_hedger.py                # Delta/gamma hedging logic
+│   │   ├── interfaces.py                   # Abstract F&O interfaces / types
+│   │   ├── margin.py                       # SPAN margin estimation
+│   │   ├── portfolio_risk.py               # Portfolio Greeks aggregation
+│   │   ├── pricing.py                      # BSM + local vol pricing
+│   │   ├── sabr.py                         # SABR stochastic vol model
+│   │   ├── signal_generator.py             # F&O-specific signal generation
+│   │   ├── strategies.py                   # Options strategies (straddle, strangle, etc.)
+│   │   ├── vix_estimator.py                # India VIX estimation from chain
+│   │   ├── vol_surface.py                  # Implied vol surface construction
+│   │   └── instrument_master/
+│   │       ├── lot_size_history.py         # Historical lot size changes
+│   │       └── strike_generator.py         # Strike generation for NSE F&O
+│   │
+│   ├── infra/                              # Infrastructure utilities
+│   │   └── event_store.py                  # Event sourcing / audit store
+│   │
+│   ├── labeling/                           # Module 3: Labeling Engine
+│   │   ├── triple_barrier.py               # Triple-barrier method ±1.5 ATR [CDR-3A-C12]
+│   │   └── walk_forward.py                 # Walk-forward split with purge + embargo [CDR-3B-C17]
+│   │
+│   ├── market_data/                        # Market reference / context data
+│   │   ├── bhav_copy_ingestor.py           # NSE bhavcopy downloader + parser
+│   │   ├── chain_normalizer.py             # Options chain normalisation
+│   │   ├── chain_snapshot.py               # Point-in-time chain snapshot archiver
+│   │   ├── delivery_volume.py              # Delivery percentage data fetcher
+│   │   ├── fii_dii_fetcher.py              # FII/DII institutional flow fetcher
+│   │   ├── india_vix.py                    # India VIX historical downloader
+│   │   ├── macro_events.py                 # RBI/budget/macro event calendar
+│   │   ├── snapshot_archiver.py            # EOD market snapshot archiver
+│   │   └── staleness_detector.py           # Feed staleness detection
+│   │
+│   ├── models/                             # Module 4: ML Ensemble + RL
+│   │   ├── dl_models.py                    # Deep learning models (TSMixer, Stage 3+)
+│   │   ├── ensemble.py                     # XGB+LGB+CatBoost OOF → LR meta-learner [CDR-P5-STACK]
+│   │   ├── explainer.py                    # SHAP explainability + SEBI compliance report
+│   │   ├── inference_engine.py             # Treelite .so compiled inference ~2ms [ARCH-FIX-2]
+│   │   ├── model_registry.py               # FrozenModelSpec + schema hash + retrain schedule [SURV-5]
+│   │   ├── online_model.py                 # River ADWIN online learning + guardrails [SURV-12]
+│   │   ├── rl_env.py                       # RL gym environment for position sizing
+│   │   ├── rl_sizer.py                     # RL agent (PPO) — Phase 4 OPTIONAL [CDR-3B-C18]
+│   │   ├── sentiment.py                    # Async SentimentWorker via ZMQ PUSH/PULL [CDR-3B-C20]
+│   │   ├── shadow_mode.py                  # Shadow/paper mode inference comparison
+│   │   ├── tracker.py                      # MLflow experiment tracking wrapper
+│   │   ├── tuner.py                        # Optuna HPO — Sunday only, max 50 trials [SURV-5]
+│   │   └── uncertainty.py                  # Prediction uncertainty / confidence calibration
+│   │
+│   ├── monitoring/                         # Runtime observability
+│   │   ├── alert_deduplicator.py           # Deduplicates repeated alerts
+│   │   └── reconciliation.py               # EOD position reconciliation vs broker
+│   │
+│   ├── news/                               # News / event intelligence (lightweight)
+│   │   ├── event_classifier.py             # Classify news event type
+│   │   ├── news_orchestrator.py            # Orchestrate news ingestion + scoring
+│   │   ├── scraper.py                      # RSS / web news scraper
+│   │   ├── signal_bridge.py                # Bridge news signals to trading signals
+│   │   └── symbol_mapper.py                # Map company names to NSE symbols
+│   │
+│   ├── news_pipeline/                      # Full news pipeline (advanced — for NLP stack)
+│   │   ├── client.py                       # Pipeline client / API consumer
+│   │   ├── config.py                       # News pipeline config
+│   │   ├── models.py                       # Data models / schemas
+│   │   ├── api/                            # FastAPI REST interface
+│   │   │   ├── main.py
+│   │   │   ├── schemas.py
+│   │   │   └── routes/
+│   │   │       ├── backtest.py
+│   │   │       ├── bulk_deals.py
+│   │   │       ├── health.py
+│   │   │       ├── news.py
+│   │   │       └── signals.py
+│   │   ├── backtest/
+│   │   │   └── signal_backtest.py          # News signal backtesting
+│   │   ├── dashboard/
+│   │   │   └── app.py                      # Streamlit / Dash monitoring dashboard
+│   │   ├── fusion/
+│   │   │   ├── alpha_scorer.py             # Score news alpha contribution
+│   │   │   └── signal_fuser.py             # Fuse news + price signals
+│   │   ├── ingestion/
+│   │   │   ├── base.py
+│   │   │   ├── http_session.py
+│   │   │   ├── jugaad_fetcher.py
+│   │   │   ├── nse_direct_client.py
+│   │   │   ├── nselib_fetcher.py
+│   │   │   ├── pulse_scraper.py
+│   │   │   └── rss_fallback.py
+│   │   ├── monitoring/                     # Pipeline health monitoring
+│   │   ├── processing/
+│   │   │   ├── deduplication.py
+│   │   │   ├── event_tagger.py
+│   │   │   ├── finbert_adapter.py          # FinBERT sentiment scoring
+│   │   │   └── ner_pipeline.py             # Named entity recognition
+│   │   └── storage/
+│   │       ├── cache.py
+│   │       ├── parquet_store.py
+│   │       └── pg_store.py                 # PostgreSQL storage for news
+│   │
+│   ├── app/                                # Runtime app orchestration (was orchestrator/)
+│   │   ├── daily_orchestrator.py           # Daily trading session orchestrator
+│   │   ├── fo_orchestrator.py              # F&O session orchestrator
+│   │   └── health_check.py                 # Process health check endpoint
+│   │
+│   ├── research/                           # Offline research / simulation
+│   │   ├── advanced_validation.py          # CPCV, combinatorial CV
+│   │   ├── audit_store.py                  # Research audit log store
+│   │   ├── chain_replay_engine.py          # Replay historical options chain
+│   │   ├── fill_simulator.py               # Realistic fill simulation
+│   │   ├── lob_simulator.py                # Limit order book simulator
+│   │   ├── market_maker.py                 # Market making simulation
+│   │   ├── metrics_engine.py               # Sharpe, PF, drawdown, regime metrics
+│   │   ├── slippage_model.py               # Empirical slippage modelling
+│   │   ├── strategy_simulator.py           # Strategy simulation harness
+│   │   └── walk_forward_runner.py          # Walk-forward execution runner
+│   │
+│   ├── risk/                               # Module 5: Risk Management
+│   │   ├── cost_model.py                   # India costs: STT + GST + slippage [SCG-COST]
+│   │   ├── fat_finger.py                   # Fat-finger / sanity checks on orders
+│   │   ├── gap_risk_model.py               # Overnight gap risk model
+│   │   ├── kill_switch_manager.py          # Kill switch state machine
+│   │   ├── manager.py                      # Kill switches, daily loss, drawdown breaker
+│   │   ├── margin_headroom.py              # Available margin headroom tracker
+│   │   ├── portfolio_allocator.py          # Cross-symbol portfolio allocation
+│   │   ├── position_sizer.py               # Half-Kelly + ATR-based sizing [CDR-3B-C18]
+│   │   └── stress_engine.py                # Stress test scenarios
+│   │
+│   ├── scripts/                            # Per-module utility scripts
+│   │   ├── compare_signals.py              # Compare signal variants side-by-side
+│   │   ├── download_fo_history.py          # Download F&O historical data
+│   │   ├── download_history.py             # Download equity historical data
+│   │   ├── generate_config_docs.py         # Auto-generate config documentation
+│   │   ├── generate_sample_data.py         # Generate synthetic test data
+│   │   ├── kill_switch.py                  # Manual kill switch CLI
+│   │   ├── model_stability_report.py       # Model stability / drift report
+│   │   ├── paper_trade.py                  # Paper trading mode entry point
+│   │   ├── pead_screener.py                # Post-earnings announcement drift screener
+│   │   ├── quality_momentum_screener.py    # Quality + momentum stock screener
+│   │   ├── run_backtest.py                 # Backtest runner CLI
+│   │   ├── run_fo.py                       # F&O trading runner CLI
+│   │   ├── select_features.py              # Feature selection / importance analysis
+│   │   ├── train_15min.py                  # Train on 15-min bar data
+│   │   ├── train_models.py                 # Full training pipeline
+│   │   ├── train_rl.py                     # RL agent training
+│   │   └── validate_edge.py                # Validate EMA edge before ML build [SURV-1]
+│   │
+│   └── signals/                            # Strategy signal logic
+│       ├── earnings_drift.py               # Post-earnings drift signal
+│       ├── ema_cross.py                    # EMA(9/21) cross — Stage 1 primary signal
+│       ├── ema_cross_filtered.py           # EMA cross with ADX/volume filter
+│       ├── event_calendar.py               # Event-driven calendar signals
+│       ├── event_filter.py                 # Filter signals around macro events
+│       ├── expiry_gamma.py                 # Expiry gamma squeeze signal
+│       ├── iv_crush.py                     # IV crush post-event signal
+│       ├── mean_reversion.py               # Mean reversion (Bollinger / Z-score)
+│       ├── multi_timeframe.py              # Multi-timeframe signal confirmation
+│       ├── opening_range_breakout.py       # Opening range breakout (9:15–9:30 bar)
+│       ├── post_news_drift.py              # Post-news price drift signal
+│       ├── stat_arb.py                     # Statistical arbitrage (cointegration)
+│       └── vwap_reversion.py               # VWAP reversion signal
+│
+├── config/                                 # Non-code config files
+│   ├── nse_holidays.yaml                   # NSE holiday calendar
+│   └── tax_rates.yaml                      # India tax rates (STT, GST, stamp duty)
+│
+├── data/                                   # Local datasets only (gitignored except structure)
+│   ├── raw/
+│   │   ├── bhavcopy/equity/                # NSE bhavcopy CSVs (2021–2026)
+│   │   ├── historical/                     # Historical OHLCV data (locked — active workdir)
+│   │   ├── market_context/                 # Market context snapshots
+│   │   └── vix/                            # India VIX historical data
+│   ├── processed/                          # Cleaned / feature-engineered data
+│   ├── interim/                            # Mid-pipeline intermediate files
+│   └── manifests/                          # MANIFEST.json, data lineage
+│
+├── docs/                                   # Human documentation
+│   ├── ARCHITECTURE_OVERVIEW.md
+│   ├── BACKUP_POLICY.md
+│   ├── ENCODING_ISSUES.md
+│   ├── INCIDENT_RUNBOOK.md
+│   ├── LOCAL_DEV_QUICKSTART.md
+│   ├── MODULE_OWNERSHIP.md
+│   ├── NAMING_GLOSSARY.md
+│   ├── RELEASE_CHECKLIST.md
+│   ├── RETENTION_POLICY.md
+│   ├── ROLLBACK_PROCEDURE.md
+│   ├── STUBS_REGISTER.md
+│   ├── TODO_RISK_REGISTER.md
+│   ├── VPS_DEPLOYMENT.md
+│   ├── safe_paper_config.env
+│   └── systemd/                            # systemd service unit files
+│
+├── logs/                                   # Runtime logs (gitignored)
+│
+├── MD_Files/                               # AI / architecture documentation
+│   ├── _part6_aidev.md
+│   ├── CLAUDE.md                           # PRIMARY AI instruction spec — read every session
+│   ├── compliance_matrix.md
+│   ├── CONVO_DEEP_RESEARCH.md
+│   ├── DATA_COLLECTION_GUIDE.md
+│   ├── DECISIONS.md
+│   ├── FULL_CODEBASE_REFERENCE.md
+│   ├── MASTER_RESEARCH_DATABASE_v3.md
+│   ├── RISK_REGISTER.md
+│   ├── RUNBOOK.md
+│   ├── SETUP_GUIDE_COMPLETE.md
+│   ├── structure                            # This file — actual directory layout
+│   ├── VPS_DEPLOYMENT.md
+│   ├── WHAT_ACTUALLY_OUTPERFORMS.md
+│   └── systemd/                            # systemd unit file templates
+│
+├── models/                                 # Model artifacts only (NOT source code)
+│   └── trained/                            # Trained .pkl / .so / SHAP files
+│                                           # NOTE: algo_trading/models/ = source code
+│                                           #       models/ (this dir) = trained artifacts
+│
+├── results/                                # Generated reports / artifacts
+│   ├── backtest_report.json
+│   ├── probability_report_latest.json
+│   ├── readiness_audit_latest.json
+│   ├── results_15min.json
+│   └── validate_edge_latest.txt
+│
+├── schemas/                                # JSON schemas / contracts
+│   └── arch-spec.schema.json
+│
+├── scripts/                                # Root-level one-off scripts
+│   ├── audit_readiness.py
+│   ├── build_data_manifest.py
+│   ├── calibrate_cost_model.py
+│   ├── check_imports.py
+│   ├── check_label_distribution.py
+│   ├── download_full_history.py            # Moved from root
+│   ├── download_nse_data.py                # Moved from root
+│   ├── health_check.py                     # Moved from root
+│   ├── paper_trading_analysis.py
+│   └── secure_env.py
+│
+├── state/                                  # Runtime state (gitignored)
+│   ├── live_state.json                     # Live system state persistence [SURV-6]
+│   └── live_state.tmp
+│
+├── tests/                                  # pytest test suite (mirrors source structure)
+│   ├── conftest.py
+│   ├── test_backtest.py
+│   ├── test_backtest_quality.py
+│   ├── test_broker_contract.py
+│   ├── test_broker_session_expiry.py
+│   ├── test_chain_snapshot.py
+│   ├── test_cost_model.py
+│   ├── test_daily_orchestrator.py
+│   ├── test_ensemble.py
+│   ├── test_fat_finger.py
+│   ├── test_features.py
+│   ├── test_fill_simulator.py
+│   ├── test_fo_*.py                        # F&O module tests (chain, cost, execution, etc.)
+│   ├── test_gap_risk_model.py
+│   ├── test_hawkes.py
+│   ├── test_imports.py
+│   ├── test_integration_pipeline.py
+│   ├── test_integrity_guard.py
+│   ├── test_kill_switch_manager.py
+│   ├── test_margin_headroom.py
+│   ├── test_market_calendar.py
+│   ├── test_mean_reversion.py
+│   ├── test_metrics_improvements.py
+│   ├── test_multi_timeframe.py
+│   ├── test_news_module.py
+│   ├── test_order_fsm.py
+│   ├── test_order_lifecycle_replay.py
+│   ├── test_pnl_ledger.py
+│   ├── test_properties.py
+│   ├── test_readiness_audit.py
+│   ├── test_research_metrics.py
+│   ├── test_risk_manager.py
+│   ├── test_rl_env.py
+│   ├── test_sabr.py
+│   ├── test_sentiment.py
+│   ├── test_signals.py
+│   ├── test_stop_loss_lifecycle.py
+│   ├── test_stress_engine.py
+│   ├── test_svi_surface.py
+│   ├── test_tfi.py
+│   ├── test_tick_aggregator.py
+│   ├── test_timezone_consistency.py
+│   ├── test_triple_barrier.py
+│   ├── test_vix_estimator.py
+│   ├── test_vol_surface_router.py
+│   └── test_walk_forward.py
+│
+├── .agents/                                # Local agent / automation config
+├── .github/workflows/ci.yml                # CI/CD pipeline
+├── .pre-commit-config.yaml                 # Pre-commit hooks
+│
+├── arch-spec.json                          # Machine-readable architecture contract
+├── CHANGELOG.md
+├── docker-compose.yml
+├── Dockerfile
+├── Makefile
+├── pyproject.toml
+├── pytest.ini
+├── README.md
+├── requirements.txt
+├── .env.example
+├── .gitignore
+└── .gitattributes

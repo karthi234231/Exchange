@@ -1,0 +1,244 @@
+{
+  "project": {
+    "name": "NSE AlgoTrader",
+    "description": "CPU-only ML algorithmic trading system for NSE India equities. Ingests tick data, builds volume bars, engineers microstructure features, generates ML signals, executes via broker APIs with strict risk controls.",
+    "version": "2026-Stage-1",
+    "language": "Python 3.11+",
+    "target_market": "NSE India — Equities, F&O",
+    "trading_session": "09:15-15:30 IST",
+    "repo_root": "EXCHANGE/"
+  },
+
+  "hardware": {
+    "cpu": "Intel i5-1345U",
+    "cpu_cores": 10,
+    "cpu_p_cores": 2,
+    "cpu_e_cores": 8,
+    "ram_gb": 16,
+    "gpu": null,
+    "gpu_constraint": "ALL_CPU_ONLY — no CUDA, no Metal, no OpenCL, no GPU libraries",
+    "disk": "SSD",
+    "os": "Windows 11",
+    "inference_budget_ms": 50,
+    "notes": "P-cores reserved for latency-critical processes (execution, tick ingestion). E-cores for ML inference and feature computation."
+  },
+
+  "stack": {
+    "language": "Python 3.11+",
+    "data_storage": {
+      "primary": "QuestDB",
+      "version": "8.0.4",
+      "protocol": "HTTP ILP (port 9000) — questdb.ingress Python client, http:// scheme. Legacy TCP ILP (port 9009) is deprecated; do NOT use.",
+      "query": "PostgreSQL wire protocol (port 8812)",
+      "tables": ["ticks","volume_bars","features","signals","orders","fills","risk_state","regime_labels","pnl_daily"]
+    },
+    "data_processing": {
+      "primary": "Polars",
+      "version": ">=0.20",
+      "rule": "NO pandas in hot path. Polars LazyFrames for batch. Polars Series for feature output.",
+      "fallback": "pandas ONLY for broker API response parsing where unavoidable"
+    },
+    "ml_models": {
+      "primary_ensemble": ["XGBoost", "LightGBM", "CatBoost"],
+      "xgboost_params": {
+        "tree_method": "hist",
+        "device": "cpu",
+        "n_jobs": 4,
+        "n_estimators": 300,
+        "max_depth": 6,
+        "learning_rate": 0.05,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8
+      },
+      "lightgbm_params": {
+        "device": "cpu",
+        "num_threads": 4,
+        "n_estimators": 300,
+        "num_leaves": 63,
+        "learning_rate": 0.05,
+        "boosting_type": "gbdt",
+        "dart_variant": {
+          "boosting_type": "dart",
+          "drop_rate": 0.1,
+          "use_when": "noisy_regime or overfit_detected"
+        }
+      },
+      "catboost_params": {
+        "task_type": "CPU",
+        "thread_count": 4,
+        "iterations": 300,
+        "depth": 6,
+        "learning_rate": 0.05
+      },
+      "ensemble_method": "weighted_average",
+      "ensemble_weights_file": "models/ensemble_weights.json",
+      "model_serialization": "joblib (training/research); Treelite compiled .so for live inference (reduces predict latency ~40ms → ~2ms)",
+      "model_directory": "models/",
+      "retrain_schedule": "weekly_or_regime_change"
+    },
+    "broker_primary": {
+      "name": "Shoonya (Finvasia)",
+      "library": "NorenRestApiPy",
+      "auth": "API key + password + TOTP; session tokens expire daily — monitor proactively with heartbeat [SURV-10]",
+      "brokerage": "zero",
+      "rate_limit_orders_per_sec": 10,
+      "use_case": "PRIMARY execution from Stage 1 — live + paper trading"
+    },
+    "broker_dev_reference": {
+      "name": "AngelOne SmartAPI",
+      "library": "smartapi-python",
+      "auth": "TOTP-based JWT",
+      "use_case": "Development reference ONLY — best docs for initial build. NOT used for live execution.",
+      "why_not_primary": "TOTP sessions expire mid-day (Critique 24), data throttled 1-3/sec (Critique 10)"
+    },
+    "data_feed": {
+      "stage_1": "Shoonya WebSocket (throttled 1-3 snaps/sec) — EMA cross paper trading only",
+      "stage_2A": "Shoonya live feed — OHLCV/volume bars only, NO L2 microstructure features",
+      "stage_2B_and_above": "TrueData WebSocket (unthrottled L2) — REQUIRED before enabling Hawkes/VPIN/TFI; historical TrueData data must match live feed schema before any microstructure ML training",
+      "deprecated_stage_2_angelone": "REMOVED — AngelOne SmartWebSocket was listed here incorrectly; AngelOne is dev reference only",
+      "tick_fields": ["timestamp", "symbol", "ltp", "volume", "best_bid", "best_ask", "oi"]
+    },
+    "ipc": {
+      "library": "ZeroMQ (pyzmq)",
+      "patterns": {
+        "tick_broadcast": "PUB/SUB",
+        "bar_broadcast": "PUB/SUB",
+        "feature_broadcast": "PUB/SUB",
+        "signal_push": "PUSH/PULL",
+        "alert_push": "PUSH/PULL"
+      },
+      "ports": {
+        "tick_pub": 5555,
+        "bar_pub": 5558,
+        "feature_pub": 5556,
+        "ml_signal_push": 5557,
+        "alert_push": 5560
+      },
+      "note": "Ports match algo_trading/config.py Settings fields. alert_push was added by ARCH-FIX-3."
+    },
+    "scheduler": "APScheduler 3.x",
+    "logging": "structlog → QuestDB logs table + rotating file",
+    "testing": "pytest + pytest-mock"
+  },
+
+  "architecture": {
+    "pattern": "Multi-process event-driven pipeline",
+    "data_flow": "Broker WebSocket → data/broker_shoonya.py → ZMQ PUB:5555 → features/engine.py → ZMQ PUB:5556 → models/inference_engine.py → ZMQ PUSH:5557 → execution/order_executor.py → Broker API",
+    "bar_type": "TimeBars (Stage 1) — VolumeBar from Stage 2A",
+    "bar_interval_minutes": 15,
+    "bar_note": "Stage 1 uses 15-minute time bars. Volume bars require TrueData and are activated from Stage 2A onward. TRAIN_BAR_TYPE must always equal LIVE_BAR_TYPE.",
+    "processes": [
+      {"name": "DataIngestor + DailyOrchestrator", "file": "algo_trading/orchestrator/daily_orchestrator.py", "cpu_affinity": "P-core", "note": "Combined in Stage 1; manages Shoonya WebSocket, session lifecycle, and ZMQ PUB:5555"},
+      {"name": "FeatureEngine", "file": "algo_trading/features/engine.py", "cpu_affinity": "E-cores", "note": "ZMQ SUB:5555 → compute 25 features → ZMQ PUB:5556"},
+      {"name": "MLInference", "file": "algo_trading/models/inference_engine.py", "cpu_affinity": "E-cores", "note": "ZMQ SUB:5556 → Treelite .so inference → ZMQ PUSH:5557"},
+      {"name": "OrderExecutor + RiskManager", "file": "algo_trading/execution/order_executor.py", "cpu_affinity": "P-core", "note": "ZMQ PULL:5557 → risk gates → Shoonya API"},
+      {"name": "AlertSink", "file": "algo_trading/alerts/alert_sink.py", "note": "ZMQ PULL:5560 → Telegram HTTP (decoupled from execution)"}
+    ]
+  },
+
+  "deployment_stage": "stage_1",
+  "stage_definitions": {
+    "stage_0": "Edge proof — validate data availability, run EMA baseline on real historical data, produce net-after-cost walk-forward report. No broker, no ML yet.",
+    "stage_1": "Shoonya paper plumbing — EMA cross only, no ML, no microstructure. Prove login/reconnect/candle/paper-order/FSM/kill-switch/reconciliation. (CURRENT)",
+    "stage_2A": "Vanilla ML on OHLCV/volume bars — only after Stage 1 runs reliably. No Hawkes, no TFI, no L2 features. Shoonya live feed.",
+    "stage_2B": "TrueData premium data integration — subscribe, record historical+live, prove feature distribution parity between training and live. No new live trading on L2 features until parity proven.",
+    "stage_3": "Microstructure features — VPIN/Avellaneda filter only if data supports it. Hawkes/TFI only at tick/sub-minute. Feature registry enforces required feed resolution.",
+    "stage_4": "F&O only after Stage 3 profitable 3+ months — Rs15L+ lot size req, high STT. Optional advanced models (RL, NLP sentiment, deep time-series) research-only until deterministic baseline profitable."
+  },
+
+  "constraints": [
+    "CPU_ONLY — no CUDA, no cuML, no TensorFlow GPU",
+    "NO_OVERNIGHT_POSITIONS — flatten by 15:15 IST",
+    "NO_PANDAS_HOT_PATH — Polars only in BarBuilder, FeatureEngine, MLInference",
+    "QUESTDB_TIMESERIES_ONLY — no SQLite, no PostgreSQL for tick data",
+    "ZEROMQ_IPC_ONLY — no Redis, no Kafka for inter-process messaging",
+    "DECIMAL_FOR_MONEY — Python Decimal for all monetary calculations",
+    "STRUCTURED_LOGGING — structlog with timestamp_ns, module, symbol",
+    "CONFIG_YAML_ONLY — no hardcoded constants in business logic",
+    "WALK_FORWARD_VALIDATION — no random split on time series",
+    "MAX_INFERENCE_50MS — ML inference pipeline within 50ms",
+    "SHOONYA_PRIMARY — Shoonya is primary execution broker from Stage 1; AngelOne is dev reference only",
+    "NSE_SESSION_ONLY — logic active 09:15-15:30 IST on NSE trading days"
+  ],
+
+  "active_critiques": [
+    "fix_ Gil_stalls_tick_feed_during_predict_isolate_with_ZeroMQ",
+    "fix_15min_time_bars_replace_with_volume_bars",
+    "fix_obi_averaging_over_15min_compute_tick_by_tick",
+    "fix_30min_limit_timeout_stale_alpha_reduce_to_20sec",
+    "fix_training_on_ohlcv_executing_on_l2_model_collapse",
+    "fix_questdb_rest_io_bottleneck_use_ring_buffer",
+    "fix_tdd_delayed_shift_to_phase_4",
+    "fix_ml_before_api_plumbing_dummy_ema_first",
+    "fix_static_slippage_0.05pct_use_dynamic_atr_spread",
+    "fix_brain_hands_not_segregated_truedata_vs_broker",
+    "fix_asymmetric_triple_barrier_class_imbalance",
+    "fix_volume_clock_replace_chronological_sincos",
+    "fix_kaggle_optuna_version_mismatch_use_docker",
+    "fix_soft_voting_correlated_models_use_stacking",
+    "fix_hmm_chattering_add_duration_penalty",
+    "fix_purge_window_missing_feature_lookback_26bars",
+    "fix_ppo_rl_unstable_replace_with_kelly_criterion",
+    "fix_rate_limiter_orders_per_min_cap_missing",
+    "fix_finbert_blocks_main_thread_async_worker",
+    "fix_kalman_newtonian_add_ofi_to_state_matrix",
+    "fix_memory_fragmentation_daily_vps_restart",
+    "fix_optuna_100trials_hyperparameter_overfitting",
+    "fix_angel_one_totp_expiry_heartbeat_monitor",
+    "fix_hml_lookahead_bias_use_rolling_predict_not_batch_decode"
+  ],
+
+  "microstructure_models": {
+    "vpin": {
+      "formula": "VPIN = |V_buy - V_sell| / V_total over rolling N volume buckets",
+      "bucket_size": "ADV / 50",
+      "window_buckets": 50,
+      "output_range": "[0.0, 1.0]",
+      "high_toxicity_threshold": 0.7,
+      "implementation_file": "features/microstructure.py"
+    },
+    "kyle_lambda": {
+      "formula": "lambda = cov(delta_p, order_flow) / var(order_flow)",
+      "order_flow_proxy": "signed_volume = volume * sign(side)",
+      "window_bars": 20,
+      "implementation_file": "features/microstructure.py"
+    },
+    "hawkes_process": {
+      "formula": "lambda(t) = mu + sum(alpha * exp(-beta*(t-ti))) for ti < t",
+      "parameters": ["mu (baseline intensity)", "alpha (excitation)", "beta (decay)"],
+      "use_case": "Detect spoof cancellation cascades and institutional burst firing",
+      "implementation_file": "features/microstructure.py"
+    },
+    "avellaneda_stoikov": {
+      "reservation_price": "r(s,t) = s - q*gamma*sigma^2*(T-t)",
+      "use_case": "Better mid-price estimator during wide bid-ask spread events",
+      "implementation_file": "features/microstructure.py"
+    }
+  },
+
+  "ml_alternatives_roadmap": {
+    "tabpfn": {
+      "status": "BANNED — do NOT use in production or paper trading",
+      "reason": "O(N²) attention mechanism makes inference unusable at any meaningful training size (>500 rows takes seconds). ARCH-FIX-4 removed TabPFN from the architecture entirely.",
+      "file": "DELETED — do not create models/tabpfn_model.py"
+    },
+    "river_online": {
+      "use_when": "regime_change_adaptation or continuous_update_required",
+      "pip": "pip install river",
+      "algorithms": ["HoeffdingTreeClassifier", "ADWINBaggingClassifier"],
+      "inference_ms": 0.5,
+      "file": "models/online_model.py"
+    },
+    "tsmixer": {
+      "use_when": "tick_data_history > 6_months AND stage >= 3",
+      "pip": "pip install neuralforecast",
+      "cpu_inference_ms": 5,
+      "file": "models/tsmixer_model.py"
+    },
+    "lgbm_dart": {
+      "use_when": "noisy_regime or overfit_detected",
+      "params": {"boosting_type": "dart", "drop_rate": 0.1},
+      "file": "models/ensemble.py"
+    }
+  }
+}

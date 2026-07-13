@@ -1,0 +1,31 @@
+[Unit]
+Description=Algo Trading — Market Open Launcher (started by timer at 08:30 IST)
+Documentation=file:///home/trading/EXCHANGE/MD_Files/VPS_DEPLOYMENT.md
+After=network.target questdb.service
+Wants=questdb.service
+# This oneshot launcher triggers the main service which pulls in companions via Wants=
+# Companion services are declared in algo-trading-main.service with Wants= so they start
+# automatically when the main service starts — no need to start them individually here.
+
+[Service]
+Type=oneshot
+# P1-FIX-42: Run as trading user instead of root. The trading user must be allowed
+# to start its own services via a polkit rule or sudo entry:
+#
+#   /etc/sudoers.d/algo-trading:
+#     trading ALL=(root) NOPASSWD: /bin/systemctl start algo-trading-main.service
+#     trading ALL=(root) NOPASSWD: /bin/systemctl stop algo-trading-main.service
+#
+# Alternatively: use `loginctl enable-linger trading` and a systemd --user unit.
+User=trading
+ExecStart=/usr/bin/sudo /bin/systemctl start algo-trading-main.service
+RemainAfterExit=no
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=algo-trading-market-open
+
+# ── Usage ─────────────────────────────────────────────────────────────────────
+# Activate timer:     systemctl enable --now algo-trading-market-open.timer
+# Check schedule:     systemctl list-timers algo-trading-market-open.timer
+# Fire immediately:   systemctl start algo-trading-market-open.service
+# Stop all services:  systemctl stop algo-trading-main.service

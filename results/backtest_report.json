@@ -1,0 +1,1772 @@
+{
+  "generated_at": "2026-06-23T18:11:18.413323+05:30",
+  "symbols_tested": [
+    "ADANIPORTS",
+    "ASIANPAINT",
+    "AXISBANK",
+    "BAJFINANCE",
+    "HDFCBANK",
+    "HINDUNILVR",
+    "ICICIBANK",
+    "INFY",
+    "KOTAKBANK",
+    "LT",
+    "MARUTI",
+    "ONGC",
+    "RELIANCE",
+    "SBIN",
+    "SUNPHARMA",
+    "TATAMOTORS",
+    "TATASTEEL",
+    "TCS",
+    "TITAN",
+    "WIPRO"
+  ],
+  "n_symbols": 20,
+  "initial_capital_per_symbol_inr": 500000.0,
+  "total_capital_deployed_inr": 10000000.0,
+  "total_trades": 461,
+  "aggregate": {
+    "sharpe_ratio": -6.9775,
+    "win_rate_pct": 33.84,
+    "profit_factor": 0.9282,
+    "max_drawdown_pct": 6.04,
+    "total_net_pnl_inr": -60181.42,
+    "profitability_pct": -0.6
+  },
+  "per_symbol": {
+    "RELIANCE": {
+      "rows": 1259,
+      "total_trades": 25,
+      "win_rate": 0.32,
+      "profit_factor": 0.9094872179130084,
+      "sharpe_ratio": -3.1924491070588545,
+      "max_drawdown": 0.00867371623053877,
+      "total_net_pnl": -875.77,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 6,
+          "net_pnl": 1229.59,
+          "win_rate": 0.5,
+          "sharpe": 17.31283141918585,
+          "profit_factor": 1.6550232530884255
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 3,
+          "net_pnl": -573.99,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -13.573652055441505,
+          "profit_factor": 0.6549877380265436
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 6,
+          "net_pnl": -1211.32,
+          "win_rate": 0.16666666666666666,
+          "sharpe": -17.30066004714584,
+          "profit_factor": 0.5770781762255731
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 5,
+          "net_pnl": 449.29,
+          "win_rate": 0.4,
+          "sharpe": 6.291725542064336,
+          "profit_factor": 1.2446793447479632
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 5,
+          "net_pnl": -769.34,
+          "win_rate": 0.2,
+          "sharpe": -23.09449984019175,
+          "profit_factor": 0.4636465675304485
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 4,
+          "net_pnl": 353.95,
+          "win_rate": 0.25,
+          "sharpe": 5.462873208410519,
+          "profit_factor": 1.2182115224561512
+        },
+        "bear": {
+          "n_trades": 6,
+          "net_pnl": -1282.57,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -26.85703358691525,
+          "profit_factor": 0.4317745829918259
+        },
+        "sideways": {
+          "n_trades": 15,
+          "net_pnl": 52.85,
+          "win_rate": 0.3333333333333333,
+          "sharpe": 0.3158682985773478,
+          "profit_factor": 1.0091176495958734
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -3.192 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.909 < 1.2",
+        "Win rate 32.0% < 40%",
+        "Fold 0: only 6 trades (need 200)",
+        "Fold 1: only 3 trades (need 200)",
+        "Fold 2: only 6 trades (need 200)",
+        "Fold 3: only 5 trades (need 200)",
+        "Fold 4: only 5 trades (need 200)"
+      ]
+    },
+    "TCS": {
+      "rows": 1249,
+      "total_trades": 21,
+      "win_rate": 0.23809523809523808,
+      "profit_factor": 0.5549655874347345,
+      "sharpe_ratio": -19.756254321700112,
+      "max_drawdown": 0.014157251464542766,
+      "total_net_pnl": -4779.14,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 2,
+          "net_pnl": -1588.26,
+          "win_rate": 0.0,
+          "sharpe": -409.64488856969376,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 6,
+          "net_pnl": 1706.6,
+          "win_rate": 0.5,
+          "sharpe": 24.949554091202693,
+          "profit_factor": 2.2217226962945995
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 3,
+          "net_pnl": 664.48,
+          "win_rate": 0.3333333333333333,
+          "sharpe": 10.087552367296645,
+          "profit_factor": 1.4258531739673792
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 5,
+          "net_pnl": -1543.01,
+          "win_rate": 0.2,
+          "sharpe": -40.10620251069634,
+          "profit_factor": 0.2903645653683596
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 5,
+          "net_pnl": -4018.95,
+          "win_rate": 0.0,
+          "sharpe": -182.98864469308637,
+          "profit_factor": 0.0
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 0,
+          "net_pnl": 0.0,
+          "win_rate": 0.0,
+          "sharpe": 0.0,
+          "profit_factor": 0.0
+        },
+        "bear": {
+          "n_trades": 3,
+          "net_pnl": -2600.68,
+          "win_rate": 0.0,
+          "sharpe": -145.6880590206373,
+          "profit_factor": 0.0
+        },
+        "sideways": {
+          "n_trades": 18,
+          "net_pnl": -2178.46,
+          "win_rate": 0.2777777777777778,
+          "sharpe": -10.2844563732775,
+          "profit_factor": 0.7323144260413633
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -19.756 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.555 < 1.2",
+        "Win rate 23.8% < 40%",
+        "Positive Sharpe in only 0/3 regimes (need 2)",
+        "Fold 0: only 2 trades (need 200)",
+        "Fold 1: only 6 trades (need 200)",
+        "Fold 2: only 3 trades (need 200)",
+        "Fold 3: only 5 trades (need 200)",
+        "Fold 4: only 5 trades (need 200)"
+      ]
+    },
+    "HDFCBANK": {
+      "rows": 1273,
+      "total_trades": 29,
+      "win_rate": 0.2413793103448276,
+      "profit_factor": 0.22942440095696578,
+      "sharpe_ratio": -23.06789645977596,
+      "max_drawdown": 0.06037352283149289,
+      "total_net_pnl": -29529.32,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 6,
+          "net_pnl": -761.87,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -6.997960316899375,
+          "profit_factor": 0.8140397124690318
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 7,
+          "net_pnl": -28008.81,
+          "win_rate": 0.0,
+          "sharpe": -50.41826038690603,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 6,
+          "net_pnl": -86.77,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -1.1368658255396507,
+          "profit_factor": 0.9606283492220503
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 7,
+          "net_pnl": -1296.46,
+          "win_rate": 0.2857142857142857,
+          "sharpe": -18.039623868779866,
+          "profit_factor": 0.5695240878045217
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 3,
+          "net_pnl": 624.59,
+          "win_rate": 0.3333333333333333,
+          "sharpe": 13.369107291114558,
+          "profit_factor": 1.6247149429885979
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 7,
+          "net_pnl": -11375.99,
+          "win_rate": 0.14285714285714285,
+          "sharpe": -41.33328368682075,
+          "profit_factor": 0.014777484666508469
+        },
+        "bear": {
+          "n_trades": 2,
+          "net_pnl": 786.32,
+          "win_rate": 0.5,
+          "sharpe": 17.850695768333647,
+          "profit_factor": 1.9382509814215996
+        },
+        "sideways": {
+          "n_trades": 20,
+          "net_pnl": -18939.65,
+          "win_rate": 0.25,
+          "sharpe": -19.73905047899462,
+          "profit_factor": 0.2697665021747403
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -23.068 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.229 < 1.2",
+        "Win rate 24.1% < 40%",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 6 trades (need 200)",
+        "Fold 1: only 7 trades (need 200)",
+        "Fold 2: only 6 trades (need 200)",
+        "Fold 3: only 7 trades (need 200)",
+        "Fold 4: only 3 trades (need 200)"
+      ]
+    },
+    "INFY": {
+      "rows": 1254,
+      "total_trades": 20,
+      "win_rate": 0.4,
+      "profit_factor": 1.5058888518545281,
+      "sharpe_ratio": 13.103116124780644,
+      "max_drawdown": 0.0074846619898529905,
+      "total_net_pnl": 4340.84,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 2,
+          "net_pnl": 20.01,
+          "win_rate": 0.5,
+          "sharpe": 0.4520279986520177,
+          "profit_factor": 1.0163040821315081
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 6,
+          "net_pnl": 745.75,
+          "win_rate": 0.5,
+          "sharpe": 9.323326107245718,
+          "profit_factor": 1.3495626658166853
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 3,
+          "net_pnl": 3420.52,
+          "win_rate": 0.6666666666666666,
+          "sharpe": 56.64607180158201,
+          "profit_factor": 5.970457881046834
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 6,
+          "net_pnl": -1469.69,
+          "win_rate": 0.16666666666666666,
+          "sharpe": -21.999693073475186,
+          "profit_factor": 0.49996937942297226
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 3,
+          "net_pnl": 1624.25,
+          "win_rate": 0.3333333333333333,
+          "sharpe": 18.472898371647805,
+          "profit_factor": 2.019892375217416
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 2,
+          "net_pnl": -1278.47,
+          "win_rate": 0.0,
+          "sharpe": -261.33998493382785,
+          "profit_factor": 0.0
+        },
+        "bear": {
+          "n_trades": 6,
+          "net_pnl": 1156.96,
+          "win_rate": 0.3333333333333333,
+          "sharpe": 8.11740249791206,
+          "profit_factor": 1.2935992143348365
+        },
+        "sideways": {
+          "n_trades": 12,
+          "net_pnl": 4462.35,
+          "win_rate": 0.5,
+          "sharpe": 26.885140739972712,
+          "profit_factor": 2.3274719325071245
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Fold 0: only 2 trades (need 200)",
+        "Fold 1: only 6 trades (need 200)",
+        "Fold 2: only 3 trades (need 200)",
+        "Fold 3: only 6 trades (need 200)",
+        "Fold 4: only 3 trades (need 200)"
+      ]
+    },
+    "ICICIBANK": {
+      "rows": 1253,
+      "total_trades": 25,
+      "win_rate": 0.36,
+      "profit_factor": 0.857113907150563,
+      "sharpe_ratio": -4.869821861172747,
+      "max_drawdown": 0.013551319317220928,
+      "total_net_pnl": -1678.11,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 3,
+          "net_pnl": 4058.06,
+          "win_rate": 1.0,
+          "sharpe": 71.87546329796638,
+          "profit_factor": Infinity
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 7,
+          "net_pnl": 161.46,
+          "win_rate": 0.42857142857142855,
+          "sharpe": 1.7916403706611899,
+          "profit_factor": 1.0523025292837151
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 4,
+          "net_pnl": 267.16,
+          "win_rate": 0.25,
+          "sharpe": 3.665764550616204,
+          "profit_factor": 1.1374407095307177
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 5,
+          "net_pnl": -3715.69,
+          "win_rate": 0.0,
+          "sharpe": -241.03046950556723,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 6,
+          "net_pnl": -2449.1,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -48.266857254082176,
+          "profit_factor": 0.18304512582392654
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 3,
+          "net_pnl": 2544.05,
+          "win_rate": 1.0,
+          "sharpe": 56.25853283289115,
+          "profit_factor": Infinity
+        },
+        "bear": {
+          "n_trades": 2,
+          "net_pnl": -461.32,
+          "win_rate": 0.5,
+          "sharpe": -28.712670331015715,
+          "profit_factor": 0.3213287433430429
+        },
+        "sideways": {
+          "n_trades": 20,
+          "net_pnl": -3760.84,
+          "win_rate": 0.25,
+          "sharpe": -13.692341384065045,
+          "profit_factor": 0.6601031212013033
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -4.870 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.857 < 1.2",
+        "Win rate 36.0% < 40%",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 3 trades (need 200)",
+        "Fold 1: only 7 trades (need 200)",
+        "Fold 2: only 4 trades (need 200)",
+        "Fold 3: only 5 trades (need 200)",
+        "Fold 4: only 6 trades (need 200)"
+      ]
+    },
+    "SBIN": {
+      "rows": 1284,
+      "total_trades": 20,
+      "win_rate": 0.25,
+      "profit_factor": 0.5719505609829635,
+      "sharpe_ratio": -19.45478230288786,
+      "max_drawdown": 0.015090338596602563,
+      "total_net_pnl": -4415.3,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 2,
+          "net_pnl": 447.26,
+          "win_rate": 0.5,
+          "sharpe": 16.949532302737342,
+          "profit_factor": 1.870274161850836
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 6,
+          "net_pnl": -2529.91,
+          "win_rate": 0.16666666666666666,
+          "sharpe": -58.56917182543443,
+          "profit_factor": 0.1901437305931688
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 3,
+          "net_pnl": -2877.4,
+          "win_rate": 0.0,
+          "sharpe": -334.16735146237625,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 7,
+          "net_pnl": -1700.66,
+          "win_rate": 0.14285714285714285,
+          "sharpe": -18.323974910771952,
+          "profit_factor": 0.5524225596757639
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 2,
+          "net_pnl": 2245.41,
+          "win_rate": 1.0,
+          "sharpe": 1798.5704962594243,
+          "profit_factor": Infinity
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 6,
+          "net_pnl": -1383.04,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -22.924270657965756,
+          "profit_factor": 0.5292932455704474
+        },
+        "bear": {
+          "n_trades": 1,
+          "net_pnl": -1220.07,
+          "win_rate": 0.0,
+          "sharpe": 0.0,
+          "profit_factor": 0.0
+        },
+        "sideways": {
+          "n_trades": 13,
+          "net_pnl": -1812.19,
+          "win_rate": 0.23076923076923078,
+          "sharpe": -11.486317258086284,
+          "profit_factor": 0.705652758647574
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -19.455 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.572 < 1.2",
+        "Win rate 25.0% < 40%",
+        "Positive Sharpe in only 0/3 regimes (need 2)",
+        "Fold 0: only 2 trades (need 200)",
+        "Fold 1: only 6 trades (need 200)",
+        "Fold 2: only 3 trades (need 200)",
+        "Fold 3: only 7 trades (need 200)",
+        "Fold 4: only 2 trades (need 200)"
+      ]
+    },
+    "HINDUNILVR": {
+      "rows": 1245,
+      "total_trades": 26,
+      "win_rate": 0.34615384615384615,
+      "profit_factor": 0.7911563117737258,
+      "sharpe_ratio": -7.54792534032776,
+      "max_drawdown": 0.0077670793646804626,
+      "total_net_pnl": -2034.81,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 4,
+          "net_pnl": -1309.6,
+          "win_rate": 0.25,
+          "sharpe": -43.479529831255036,
+          "profit_factor": 0.23504226076086893
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 6,
+          "net_pnl": -2584.15,
+          "win_rate": 0.16666666666666666,
+          "sharpe": -49.771545597854605,
+          "profit_factor": 0.20529506013758914
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 2,
+          "net_pnl": 1585.1,
+          "win_rate": 1.0,
+          "sharpe": 115.05074629096177,
+          "profit_factor": Infinity
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 6,
+          "net_pnl": 1712.23,
+          "win_rate": 0.5,
+          "sharpe": 20.13839308869282,
+          "profit_factor": 2.074084296763752
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 8,
+          "net_pnl": -1438.39,
+          "win_rate": 0.25,
+          "sharpe": -20.284187357071154,
+          "profit_factor": 0.5484414781235579
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 4,
+          "net_pnl": -1866.21,
+          "win_rate": 0.25,
+          "sharpe": -47.612637244133204,
+          "profit_factor": 0.17737371065855595
+        },
+        "bear": {
+          "n_trades": 4,
+          "net_pnl": 1566.16,
+          "win_rate": 0.5,
+          "sharpe": 35.26792132894286,
+          "profit_factor": 3.338808912251359
+        },
+        "sideways": {
+          "n_trades": 18,
+          "net_pnl": -1734.76,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -9.388932413934093,
+          "profit_factor": 0.7450749304186053
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -7.548 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.791 < 1.2",
+        "Win rate 34.6% < 40%",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 4 trades (need 200)",
+        "Fold 1: only 6 trades (need 200)",
+        "Fold 2: only 2 trades (need 200)",
+        "Fold 3: only 6 trades (need 200)",
+        "Fold 4: only 8 trades (need 200)"
+      ]
+    },
+    "BAJFINANCE": {
+      "rows": 1251,
+      "total_trades": 20,
+      "win_rate": 0.5,
+      "profit_factor": 0.6710079416612557,
+      "sharpe_ratio": -7.997891497578823,
+      "max_drawdown": 0.024595045045398223,
+      "total_net_pnl": -6059.81,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 1,
+          "net_pnl": -480.54,
+          "win_rate": 0.0,
+          "sharpe": 0.0,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 4,
+          "net_pnl": 3482.8,
+          "win_rate": 0.5,
+          "sharpe": 40.115931383855944,
+          "profit_factor": 4.2099835021520935
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 4,
+          "net_pnl": 401.11,
+          "win_rate": 0.5,
+          "sharpe": 5.521228574799619,
+          "profit_factor": 1.2077375249242561
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 4,
+          "net_pnl": -9389.82,
+          "win_rate": 0.75,
+          "sharpe": -28.596217337621486,
+          "profit_factor": 0.22244663223504918
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 7,
+          "net_pnl": -73.36,
+          "win_rate": 0.42857142857142855,
+          "sharpe": -0.861567049260825,
+          "profit_factor": 0.9742309867466622
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 4,
+          "net_pnl": -322.5,
+          "win_rate": 0.25,
+          "sharpe": -8.390255115245761,
+          "profit_factor": 0.7516900475831164
+        },
+        "bear": {
+          "n_trades": 6,
+          "net_pnl": -8418.11,
+          "win_rate": 0.6666666666666666,
+          "sharpe": -20.92955112059393,
+          "profit_factor": 0.34618906523655485
+        },
+        "sideways": {
+          "n_trades": 10,
+          "net_pnl": 2680.8,
+          "win_rate": 0.5,
+          "sharpe": 15.177860007922897,
+          "profit_factor": 1.631506045808216
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -7.998 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.671 < 1.2",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 1 trades (need 200)",
+        "Fold 1: only 4 trades (need 200)",
+        "Fold 2: only 4 trades (need 200)",
+        "Fold 3: only 4 trades (need 200)",
+        "Fold 4: only 7 trades (need 200)"
+      ]
+    },
+    "KOTAKBANK": {
+      "rows": 1255,
+      "total_trades": 29,
+      "win_rate": 0.3793103448275862,
+      "profit_factor": 2.9761562262377677,
+      "sharpe_ratio": 15.362279912702926,
+      "max_drawdown": 0.007232202648573119,
+      "total_net_pnl": 19933.31,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 4,
+          "net_pnl": 594.85,
+          "win_rate": 0.5,
+          "sharpe": 13.762194138027725,
+          "profit_factor": 1.5385109811518896
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 5,
+          "net_pnl": 440.98,
+          "win_rate": 0.2,
+          "sharpe": 5.35581860377256,
+          "profit_factor": 1.2251264798525636
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 7,
+          "net_pnl": -368.34,
+          "win_rate": 0.42857142857142855,
+          "sharpe": -4.670127775288928,
+          "profit_factor": 0.8757421600906784
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 8,
+          "net_pnl": 948.47,
+          "win_rate": 0.375,
+          "sharpe": 8.323398333060318,
+          "profit_factor": 1.3410486724390875
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 5,
+          "net_pnl": 18317.35,
+          "win_rate": 0.4,
+          "sharpe": 34.98897274370153,
+          "profit_factor": 15.331479047350795
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 2,
+          "net_pnl": -1910.35,
+          "win_rate": 0.0,
+          "sharpe": -312.979723690449,
+          "profit_factor": 0.0
+        },
+        "bear": {
+          "n_trades": 7,
+          "net_pnl": -544.58,
+          "win_rate": 0.2857142857142857,
+          "sharpe": -6.9739451900580365,
+          "profit_factor": 0.7982416817021529
+        },
+        "sideways": {
+          "n_trades": 20,
+          "net_pnl": 22388.24,
+          "win_rate": 0.45,
+          "sharpe": 21.158476350462255,
+          "profit_factor": 5.087391987789805
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Win rate 37.9% < 40%",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 4 trades (need 200)",
+        "Fold 1: only 5 trades (need 200)",
+        "Fold 2: only 7 trades (need 200)",
+        "Fold 3: only 8 trades (need 200)",
+        "Fold 4: only 5 trades (need 200)"
+      ]
+    },
+    "LT": {
+      "rows": 1250,
+      "total_trades": 24,
+      "win_rate": 0.25,
+      "profit_factor": 0.6406659269024867,
+      "sharpe_ratio": -14.691415146223177,
+      "max_drawdown": 0.014934373993318987,
+      "total_net_pnl": -5165.05,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 3,
+          "net_pnl": 829.03,
+          "win_rate": 0.3333333333333333,
+          "sharpe": 12.272021598471294,
+          "profit_factor": 1.5516091900487714
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 5,
+          "net_pnl": -3583.16,
+          "win_rate": 0.0,
+          "sharpe": -331.9098313322055,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 6,
+          "net_pnl": 463.89,
+          "win_rate": 0.3333333333333333,
+          "sharpe": 3.747090378709255,
+          "profit_factor": 1.121358702618987
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 5,
+          "net_pnl": -211.56,
+          "win_rate": 0.4,
+          "sharpe": -2.618176022471591,
+          "profit_factor": 0.9110389719610449
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 5,
+          "net_pnl": -2663.25,
+          "win_rate": 0.2,
+          "sharpe": -70.94014268769253,
+          "profit_factor": 0.13734464429738896
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 4,
+          "net_pnl": 1199.01,
+          "win_rate": 0.5,
+          "sharpe": 14.318061139913064,
+          "profit_factor": 1.6689933380201536
+        },
+        "bear": {
+          "n_trades": 2,
+          "net_pnl": -1058.87,
+          "win_rate": 0.0,
+          "sharpe": -372.53843843778753,
+          "profit_factor": 0.0
+        },
+        "sideways": {
+          "n_trades": 18,
+          "net_pnl": -5305.19,
+          "win_rate": 0.2222222222222222,
+          "sharpe": -20.84366674293463,
+          "profit_factor": 0.53959273858309
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -14.691 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.641 < 1.2",
+        "Win rate 25.0% < 40%",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 3 trades (need 200)",
+        "Fold 1: only 5 trades (need 200)",
+        "Fold 2: only 6 trades (need 200)",
+        "Fold 3: only 5 trades (need 200)",
+        "Fold 4: only 5 trades (need 200)"
+      ]
+    },
+    "MARUTI": {
+      "rows": 1245,
+      "total_trades": 23,
+      "win_rate": 0.21739130434782608,
+      "profit_factor": 0.43774033976775234,
+      "sharpe_ratio": -26.026855006355067,
+      "max_drawdown": 0.015490042142678129,
+      "total_net_pnl": -6208.28,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 3,
+          "net_pnl": -2592.35,
+          "win_rate": 0.0,
+          "sharpe": -156.98545463731963,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 3,
+          "net_pnl": -574.26,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -26.132834955498552,
+          "profit_factor": 0.44446701686159557
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 5,
+          "net_pnl": -419.11,
+          "win_rate": 0.2,
+          "sharpe": -9.695810648397483,
+          "profit_factor": 0.7280431382982175
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 6,
+          "net_pnl": -4210.78,
+          "win_rate": 0.0,
+          "sharpe": -133.26068126991373,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 6,
+          "net_pnl": 1588.22,
+          "win_rate": 0.5,
+          "sharpe": 17.788468570924962,
+          "profit_factor": 1.9546140299207204
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 5,
+          "net_pnl": -1390.95,
+          "win_rate": 0.2,
+          "sharpe": -26.44650114664237,
+          "profit_factor": 0.44648279100492255
+        },
+        "bear": {
+          "n_trades": 1,
+          "net_pnl": -510.33,
+          "win_rate": 0.0,
+          "sharpe": 0.0,
+          "profit_factor": 0.0
+        },
+        "sideways": {
+          "n_trades": 17,
+          "net_pnl": -4307.0,
+          "win_rate": 0.23529411764705882,
+          "sharpe": -23.1662750281938,
+          "profit_factor": 0.4628604210316273
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -26.027 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.438 < 1.2",
+        "Win rate 21.7% < 40%",
+        "Positive Sharpe in only 0/3 regimes (need 2)",
+        "Fold 0: only 3 trades (need 200)",
+        "Fold 1: only 3 trades (need 200)",
+        "Fold 2: only 5 trades (need 200)",
+        "Fold 3: only 6 trades (need 200)",
+        "Fold 4: only 6 trades (need 200)"
+      ]
+    },
+    "ASIANPAINT": {
+      "rows": 1252,
+      "total_trades": 24,
+      "win_rate": 0.3333333333333333,
+      "profit_factor": 0.831032139702385,
+      "sharpe_ratio": -5.936679375199684,
+      "max_drawdown": 0.011158234637390518,
+      "total_net_pnl": -1989.36,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 5,
+          "net_pnl": -2291.7,
+          "win_rate": 0.2,
+          "sharpe": -32.31717273845966,
+          "profit_factor": 0.38929039685331457
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 4,
+          "net_pnl": -1300.66,
+          "win_rate": 0.25,
+          "sharpe": -40.21559463629537,
+          "profit_factor": 0.3242376852857284
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 6,
+          "net_pnl": 203.94,
+          "win_rate": 0.3333333333333333,
+          "sharpe": 2.4387222189435884,
+          "profit_factor": 1.080669915509003
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 6,
+          "net_pnl": -2157.52,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -37.840625015849824,
+          "profit_factor": 0.3312773336887423
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 3,
+          "net_pnl": 3556.58,
+          "win_rate": 0.6666666666666666,
+          "sharpe": 51.71411430107507,
+          "profit_factor": 11.401181493829327
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 3,
+          "net_pnl": 1997.44,
+          "win_rate": 0.3333333333333333,
+          "sharpe": 24.0965049920547,
+          "profit_factor": 2.677576490547339
+        },
+        "bear": {
+          "n_trades": 3,
+          "net_pnl": -604.61,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -24.445334763143414,
+          "profit_factor": 0.47360218704835544
+        },
+        "sideways": {
+          "n_trades": 18,
+          "net_pnl": -3382.19,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -15.453509328804973,
+          "profit_factor": 0.6415025942433765
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -5.937 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.831 < 1.2",
+        "Win rate 33.3% < 40%",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 5 trades (need 200)",
+        "Fold 1: only 4 trades (need 200)",
+        "Fold 2: only 6 trades (need 200)",
+        "Fold 3: only 6 trades (need 200)",
+        "Fold 4: only 3 trades (need 200)"
+      ]
+    },
+    "SUNPHARMA": {
+      "rows": 1254,
+      "total_trades": 27,
+      "win_rate": 0.4074074074074074,
+      "profit_factor": 1.0249100182048112,
+      "sharpe_ratio": 0.8176010413801301,
+      "max_drawdown": 0.008723003788165928,
+      "total_net_pnl": 250.95,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 2,
+          "net_pnl": 2392.3,
+          "win_rate": 1.0,
+          "sharpe": 249.96006796814822,
+          "profit_factor": Infinity
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 7,
+          "net_pnl": -813.83,
+          "win_rate": 0.42857142857142855,
+          "sharpe": -12.753203809997222,
+          "profit_factor": 0.6996205717997741
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 4,
+          "net_pnl": 2617.69,
+          "win_rate": 0.5,
+          "sharpe": 35.68397916513923,
+          "profit_factor": 3.2632238764676393
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 6,
+          "net_pnl": -2891.89,
+          "win_rate": 0.0,
+          "sharpe": -193.801206346481,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 8,
+          "net_pnl": -1053.32,
+          "win_rate": 0.5,
+          "sharpe": -12.265533333538395,
+          "profit_factor": 0.6823915016538968
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 4,
+          "net_pnl": 1963.63,
+          "win_rate": 0.75,
+          "sharpe": 34.24043566270061,
+          "profit_factor": 3.249289805269187
+        },
+        "bear": {
+          "n_trades": 2,
+          "net_pnl": -443.32,
+          "win_rate": 0.5,
+          "sharpe": -22.046777270861657,
+          "profit_factor": 0.4343243588107694
+        },
+        "sideways": {
+          "n_trades": 21,
+          "net_pnl": -1269.36,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -5.449778496312706,
+          "profit_factor": 0.8492009560965412
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe 0.818 < 1.0 (walk-forward OOS)",
+        "Profit factor 1.025 < 1.2",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 2 trades (need 200)",
+        "Fold 1: only 7 trades (need 200)",
+        "Fold 2: only 4 trades (need 200)",
+        "Fold 3: only 6 trades (need 200)",
+        "Fold 4: only 8 trades (need 200)"
+      ]
+    },
+    "TATAMOTORS": {
+      "rows": 1250,
+      "total_trades": 26,
+      "win_rate": 0.23076923076923078,
+      "profit_factor": 0.9489701004546349,
+      "sharpe_ratio": -1.2847384914664135,
+      "max_drawdown": 0.02641211701246382,
+      "total_net_pnl": -948.01,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 3,
+          "net_pnl": -1959.32,
+          "win_rate": 0.0,
+          "sharpe": -355.0574615991854,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 5,
+          "net_pnl": -1417.99,
+          "win_rate": 0.2,
+          "sharpe": -21.296951680720493,
+          "profit_factor": 0.5217781345168677
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 2,
+          "net_pnl": -2057.18,
+          "win_rate": 0.0,
+          "sharpe": -748.7944917881576,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 7,
+          "net_pnl": -4767.41,
+          "win_rate": 0.14285714285714285,
+          "sharpe": -43.058805973340284,
+          "profit_factor": 0.29780123312408124
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 9,
+          "net_pnl": 9253.89,
+          "win_rate": 0.4444444444444444,
+          "sharpe": 23.531738584842007,
+          "profit_factor": 2.9252265091071745
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 4,
+          "net_pnl": -3631.67,
+          "win_rate": 0.0,
+          "sharpe": -238.48476316287966,
+          "profit_factor": 0.0
+        },
+        "bear": {
+          "n_trades": 8,
+          "net_pnl": -627.73,
+          "win_rate": 0.375,
+          "sharpe": -4.708963650926621,
+          "profit_factor": 0.865299772541951
+        },
+        "sideways": {
+          "n_trades": 14,
+          "net_pnl": 3311.39,
+          "win_rate": 0.21428571428571427,
+          "sharpe": 6.44768957275057,
+          "profit_factor": 1.321942080583958
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -1.285 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.949 < 1.2",
+        "Win rate 23.1% < 40%",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 3 trades (need 200)",
+        "Fold 1: only 5 trades (need 200)",
+        "Fold 2: only 2 trades (need 200)",
+        "Fold 3: only 7 trades (need 200)",
+        "Fold 4: only 9 trades (need 200)"
+      ]
+    },
+    "TATASTEEL": {
+      "rows": 1257,
+      "total_trades": 20,
+      "win_rate": 0.45,
+      "profit_factor": 0.48086260464110625,
+      "sharpe_ratio": -11.73136243924598,
+      "max_drawdown": 0.04572921871178326,
+      "total_net_pnl": -15462.58,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 1,
+          "net_pnl": -22209.54,
+          "win_rate": 0.0,
+          "sharpe": 0.0,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 4,
+          "net_pnl": 973.72,
+          "win_rate": 0.5,
+          "sharpe": 18.421071713901743,
+          "profit_factor": 1.9863552102432156
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 2,
+          "net_pnl": 3765.76,
+          "win_rate": 1.0,
+          "sharpe": 449.0643450525624,
+          "profit_factor": Infinity
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 8,
+          "net_pnl": 1145.49,
+          "win_rate": 0.375,
+          "sharpe": 7.663554759450931,
+          "profit_factor": 1.2606561629621538
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 5,
+          "net_pnl": 861.99,
+          "win_rate": 0.4,
+          "sharpe": 9.5509376625261,
+          "profit_factor": 1.392926332295546
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 2,
+          "net_pnl": 546.61,
+          "win_rate": 0.5,
+          "sharpe": 51.51551534945461,
+          "profit_factor": 24.489901160292224
+        },
+        "bear": {
+          "n_trades": 5,
+          "net_pnl": 1949.88,
+          "win_rate": 0.6,
+          "sharpe": 20.380966067788513,
+          "profit_factor": 1.9033621037123518
+        },
+        "sideways": {
+          "n_trades": 13,
+          "net_pnl": -17959.07,
+          "win_rate": 0.38461538461538464,
+          "sharpe": -17.045059691510257,
+          "profit_factor": 0.34938920567756143
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -11.731 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.481 < 1.2",
+        "Fold 0: only 1 trades (need 200)",
+        "Fold 1: only 4 trades (need 200)",
+        "Fold 2: only 2 trades (need 200)",
+        "Fold 3: only 8 trades (need 200)",
+        "Fold 4: only 5 trades (need 200)"
+      ]
+    },
+    "ADANIPORTS": {
+      "rows": 1248,
+      "total_trades": 16,
+      "win_rate": 0.5,
+      "profit_factor": 1.403850163681478,
+      "sharpe_ratio": 10.838380796500369,
+      "max_drawdown": 0.0176887000972574,
+      "total_net_pnl": 5423.11,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 4,
+          "net_pnl": 7311.94,
+          "win_rate": 1.0,
+          "sharpe": 108.1932733518663,
+          "profit_factor": Infinity
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 3,
+          "net_pnl": 826.84,
+          "win_rate": 0.6666666666666666,
+          "sharpe": 7.681307140852882,
+          "profit_factor": 1.2792953773919506
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 3,
+          "net_pnl": 3613.54,
+          "win_rate": 0.3333333333333333,
+          "sharpe": 22.065930203942365,
+          "profit_factor": 2.4038289705756664
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 4,
+          "net_pnl": -5816.02,
+          "win_rate": 0.0,
+          "sharpe": -154.46673329977165,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 2,
+          "net_pnl": -513.19,
+          "win_rate": 0.5,
+          "sharpe": -7.875335425409622,
+          "profit_factor": 0.7530353851558478
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 4,
+          "net_pnl": -1888.35,
+          "win_rate": 0.25,
+          "sharpe": -19.272194865931752,
+          "profit_factor": 0.5526000303265793
+        },
+        "bear": {
+          "n_trades": 2,
+          "net_pnl": -2482.76,
+          "win_rate": 0.5,
+          "sharpe": -40.36790337084425,
+          "profit_factor": 0.16135722609738384
+        },
+        "sideways": {
+          "n_trades": 10,
+          "net_pnl": 9794.22,
+          "win_rate": 0.6,
+          "sharpe": 29.313340743104636,
+          "profit_factor": 2.5677399217268118
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 4 trades (need 200)",
+        "Fold 1: only 3 trades (need 200)",
+        "Fold 2: only 3 trades (need 200)",
+        "Fold 3: only 4 trades (need 200)",
+        "Fold 4: only 2 trades (need 200)"
+      ]
+    },
+    "ONGC": {
+      "rows": 1250,
+      "total_trades": 21,
+      "win_rate": 0.38095238095238093,
+      "profit_factor": 0.4503831666450188,
+      "sharpe_ratio": -27.366874075415087,
+      "max_drawdown": 0.01806574374512604,
+      "total_net_pnl": -7616.7,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 3,
+          "net_pnl": -2723.29,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -80.22368156217114,
+          "profit_factor": 0.005568660673205431
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 6,
+          "net_pnl": -171.16,
+          "win_rate": 0.3333333333333333,
+          "sharpe": -2.0387678873539734,
+          "profit_factor": 0.9394734515621409
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 2,
+          "net_pnl": -2701.54,
+          "win_rate": 0.0,
+          "sharpe": -265.15323600387944,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 5,
+          "net_pnl": -3027.78,
+          "win_rate": 0.4,
+          "sharpe": -59.186409584942595,
+          "profit_factor": 0.1127878594305372
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 5,
+          "net_pnl": 1007.07,
+          "win_rate": 0.6,
+          "sharpe": 12.93840628851813,
+          "profit_factor": 1.4624721020582483
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 6,
+          "net_pnl": 981.65,
+          "win_rate": 0.6666666666666666,
+          "sharpe": 8.580682385152539,
+          "profit_factor": 1.2937787673651637
+        },
+        "bear": {
+          "n_trades": 2,
+          "net_pnl": -1130.95,
+          "win_rate": 0.0,
+          "sharpe": -78.59428273993944,
+          "profit_factor": 0.0
+        },
+        "sideways": {
+          "n_trades": 13,
+          "net_pnl": -7467.4,
+          "win_rate": 0.3076923076923077,
+          "sharpe": -55.811184426679205,
+          "profit_factor": 0.20439302392233366
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -27.367 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.450 < 1.2",
+        "Win rate 38.1% < 40%",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 3 trades (need 200)",
+        "Fold 1: only 6 trades (need 200)",
+        "Fold 2: only 2 trades (need 200)",
+        "Fold 3: only 5 trades (need 200)",
+        "Fold 4: only 5 trades (need 200)"
+      ]
+    },
+    "TITAN": {
+      "rows": 1247,
+      "total_trades": 24,
+      "win_rate": 0.375,
+      "profit_factor": 1.241538713456185,
+      "sharpe_ratio": 6.346965539302412,
+      "max_drawdown": 0.007057151642246146,
+      "total_net_pnl": 2109.36,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 2,
+          "net_pnl": 2672.49,
+          "win_rate": 0.5,
+          "sharpe": 45.67855315360448,
+          "profit_factor": 9.936300407944895
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 5,
+          "net_pnl": 18.08,
+          "win_rate": 0.4,
+          "sharpe": 0.2692329557807644,
+          "profit_factor": 1.0095387829610323
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 5,
+          "net_pnl": 2953.71,
+          "win_rate": 0.6,
+          "sharpe": 36.88895174570497,
+          "profit_factor": 3.435728068873386
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 7,
+          "net_pnl": -2748.23,
+          "win_rate": 0.2857142857142857,
+          "sharpe": -35.38569350147393,
+          "profit_factor": 0.35653861732939046
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 5,
+          "net_pnl": -786.69,
+          "win_rate": 0.2,
+          "sharpe": -42.302472654161555,
+          "profit_factor": 0.2542233092543087
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 5,
+          "net_pnl": 580.21,
+          "win_rate": 0.2,
+          "sharpe": 9.441315139714199,
+          "profit_factor": 1.4781924275141347
+        },
+        "bear": {
+          "n_trades": 4,
+          "net_pnl": 2089.13,
+          "win_rate": 1.0,
+          "sharpe": 67.41083273848808,
+          "profit_factor": Infinity
+        },
+        "sideways": {
+          "n_trades": 15,
+          "net_pnl": -559.98,
+          "win_rate": 0.26666666666666666,
+          "sharpe": -2.372297951260931,
+          "profit_factor": 0.9255313065599953
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Win rate 37.5% < 40%",
+        "Fold 0: only 2 trades (need 200)",
+        "Fold 1: only 5 trades (need 200)",
+        "Fold 2: only 5 trades (need 200)",
+        "Fold 3: only 7 trades (need 200)",
+        "Fold 4: only 5 trades (need 200)"
+      ]
+    },
+    "WIPRO": {
+      "rows": 1262,
+      "total_trades": 20,
+      "win_rate": 0.2,
+      "profit_factor": 0.47765437141487155,
+      "sharpe_ratio": -21.51259983204295,
+      "max_drawdown": 0.02350097499542423,
+      "total_net_pnl": -7353.19,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 4,
+          "net_pnl": 1870.33,
+          "win_rate": 0.25,
+          "sharpe": 13.638040962701018,
+          "profit_factor": 1.7057130028261274
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 5,
+          "net_pnl": -807.13,
+          "win_rate": 0.4,
+          "sharpe": -15.80448191868181,
+          "profit_factor": 0.5936494670969497
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 2,
+          "net_pnl": -297.17,
+          "win_rate": 0.5,
+          "sharpe": -7.081814509453321,
+          "profit_factor": 0.7751216448349186
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 3,
+          "net_pnl": -2052.15,
+          "win_rate": 0.0,
+          "sharpe": -100.28503907989707,
+          "profit_factor": 0.0
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 6,
+          "net_pnl": -6067.07,
+          "win_rate": 0.0,
+          "sharpe": -197.45779332762766,
+          "profit_factor": 0.0
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 2,
+          "net_pnl": -2173.13,
+          "win_rate": 0.0,
+          "sharpe": -258.5761480143099,
+          "profit_factor": 0.0
+        },
+        "bear": {
+          "n_trades": 6,
+          "net_pnl": -1119.62,
+          "win_rate": 0.16666666666666666,
+          "sharpe": -6.311443800518601,
+          "profit_factor": 0.8014935587618923
+        },
+        "sideways": {
+          "n_trades": 12,
+          "net_pnl": -4060.44,
+          "win_rate": 0.25,
+          "sharpe": -36.16936486047864,
+          "profit_factor": 0.3517712607161672
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Sharpe -21.513 < 1.0 (walk-forward OOS)",
+        "Profit factor 0.478 < 1.2",
+        "Win rate 20.0% < 40%",
+        "Positive Sharpe in only 0/3 regimes (need 2)",
+        "Fold 0: only 4 trades (need 200)",
+        "Fold 1: only 5 trades (need 200)",
+        "Fold 2: only 2 trades (need 200)",
+        "Fold 3: only 3 trades (need 200)",
+        "Fold 4: only 6 trades (need 200)"
+      ]
+    },
+    "AXISBANK": {
+      "rows": 1259,
+      "total_trades": 21,
+      "win_rate": 0.47619047619047616,
+      "profit_factor": 1.1870823786991451,
+      "sharpe_ratio": 5.969453332893943,
+      "max_drawdown": 0.009565861773516477,
+      "total_net_pnl": 1876.44,
+      "per_fold_metrics": [
+        {
+          "fold_index": 0,
+          "n_trades": 2,
+          "net_pnl": 862.47,
+          "win_rate": 0.5,
+          "sharpe": 18.421731047128848,
+          "profit_factor": 1.9830174270832146
+        },
+        {
+          "fold_index": 1,
+          "n_trades": 3,
+          "net_pnl": 363.19,
+          "win_rate": 0.6666666666666666,
+          "sharpe": 10.098831933238687,
+          "profit_factor": 1.408974719891898
+        },
+        {
+          "fold_index": 2,
+          "n_trades": 7,
+          "net_pnl": -2865.42,
+          "win_rate": 0.2857142857142857,
+          "sharpe": -41.540925406907405,
+          "profit_factor": 0.30563047508269425
+        },
+        {
+          "fold_index": 3,
+          "n_trades": 5,
+          "net_pnl": 3238.63,
+          "win_rate": 0.6,
+          "sharpe": 29.529421485372424,
+          "profit_factor": 2.306610453270934
+        },
+        {
+          "fold_index": 4,
+          "n_trades": 4,
+          "net_pnl": 277.57,
+          "win_rate": 0.5,
+          "sharpe": 5.023322823537166,
+          "profit_factor": 1.1672813837160247
+        }
+      ],
+      "regime_breakdown": {
+        "bull": {
+          "n_trades": 4,
+          "net_pnl": -654.72,
+          "win_rate": 0.5,
+          "sharpe": -12.79872962188329,
+          "profit_factor": 0.6646863604703569
+        },
+        "bear": {
+          "n_trades": 2,
+          "net_pnl": -1371.24,
+          "win_rate": 0.0,
+          "sharpe": -199.88173751413376,
+          "profit_factor": 0.0
+        },
+        "sideways": {
+          "n_trades": 15,
+          "net_pnl": 3902.4,
+          "win_rate": 0.5333333333333333,
+          "sharpe": 16.05618833067019,
+          "profit_factor": 1.5819075425500506
+        }
+      },
+      "passes_gate": false,
+      "gate_failures": [
+        "Profit factor 1.187 < 1.2",
+        "Positive Sharpe in only 1/3 regimes (need 2)",
+        "Fold 0: only 2 trades (need 200)",
+        "Fold 1: only 3 trades (need 200)",
+        "Fold 2: only 7 trades (need 200)",
+        "Fold 3: only 5 trades (need 200)",
+        "Fold 4: only 4 trades (need 200)"
+      ]
+    }
+  },
+  "methodology_notes": [
+    "Strategy: EMA(9/21) crossover on daily OHLCV data (2021-2026, ~1259 bars/symbol).",
+    "Walk-forward: 5-fold OOS, purge=77 bars, embargo=5 bars.",
+    "Costs: Full India cost model (STT, exchange, SEBI fee, GST, stamp, slippage).",
+    "Position size: 5% of \u20b95L capital per trade.",
+    "Stop-loss: 1.5\u00d7 ATR(14) from entry.",
+    "Sharpe annualised at 25 bars/day \u00d7 250 days (designed for 15-min bars).",
+    "For daily bars the Sharpe is approximately over-stated by \u221a25 \u2248 5\u00d7.",
+    "Edge gate (200 trades/fold) designed for 15-min bars; daily EMA gives ~20-40/fold."
+  ],
+  "ml_training": {
+    "steps": {
+      "load": "5/5 symbols loaded",
+      "features": "2/5 symbols with features",
+      "labels": "2/2 symbols labeled",
+      "walk_forward": "2/2 symbols split",
+      "optuna": "Best params: {'n_estimators': 200, 'max_depth': 4, 'learning_rate': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3}",
+      "ensemble": "stub returned (MLEnsemble class pending full build)",
+      "shap": "stub ok",
+      "mlflow": "logged (or skipped if not installed)",
+      "frozen_spec": "models\\trained\\frozen_model_spec.json"
+    },
+    "success": true,
+    "best_hyperparams": {
+      "n_estimators": 200,
+      "max_depth": 4,
+      "learning_rate": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "min_child_weight": 3
+    }
+  }
+}

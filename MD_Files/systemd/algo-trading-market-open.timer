@@ -1,0 +1,14 @@
+[Unit]
+Description=Algo Trading — Daily Market Open Timer (fires at 08:30 IST Mon–Fri)
+Documentation=file:///home/trading/EXCHANGE/MD_Files/VPS_DEPLOYMENT.md
+
+[Timer]
+# IST = UTC+05:30, so 08:30 IST = 03:00 UTC
+OnCalendar=Mon-Fri 03:00:00
+# Do NOT catch up if VPS was offline — delayed start is worse than no start
+Persistent=false
+AccuracySec=60s
+Unit=algo-trading-market-open.service
+
+[Install]
+WantedBy=timers.target

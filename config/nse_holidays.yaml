@@ -1,0 +1,27 @@
+# NSE Trading Holidays by year
+# Source: NSE India official circulars (verify at nseindia.com before live trading)
+# All entries marked ASSUMED — recheck before Stage 1 paper trading begins.
+#
+# Format: each year key maps to a list of ISO-8601 date strings (YYYY-MM-DD).
+# Add new years here before the calendar rolls over.
+
+"2026":
+  - "2026-01-26"  # Republic Day
+  - "2026-02-19"  # Chhatrapati Shivaji Maharaj Jayanti
+  - "2026-03-25"  # Holi
+  - "2026-04-02"  # Good Friday
+  - "2026-04-06"  # Gudi Padwa
+  - "2026-04-10"  # Shri Ram Navami
+  - "2026-04-14"  # Dr. B.R. Ambedkar Jayanti
+  - "2026-05-01"  # Maharashtra Day
+  - "2026-08-15"  # Independence Day
+  - "2026-10-02"  # Gandhi Jayanti / Mahatma Gandhi Jayanti
+  - "2026-10-24"  # Diwali Laxmi Puja (tentative)
+  - "2026-10-26"  # Diwali Balipratipada (tentative)
+  - "2026-11-05"  # Guru Nanak Jayanti (tentative)
+  - "2026-12-25"  # Christmas
+
+# Template for future years — fill in from NSE circular:
+# "2027":
+#   - "2027-01-26"  # Republic Day
+#   - ...

@@ -1,0 +1,68 @@
+version: "3.9"
+
+# NSE AlgoTrader — Docker Compose stack
+# Services: algo_trader + questdb
+#
+# Usage:
+#   docker compose up -d            # start everything
+#   docker compose logs -f trader   # follow trading logs
+#   docker compose down             # stop (data persists in questdb_data volume)
+
+services:
+
+  # ── QuestDB (time-series database) ────────────────────────────────────────
+  questdb:
+    image: questdb/questdb:8.0.4   # supports amd64 + arm64
+    container_name: questdb
+    restart: unless-stopped
+    ports:
+      - "9000:9000"    # HTTP API + ILP over HTTP (browser UI at http://localhost:9000)
+      - "8812:8812"    # PostgreSQL wire protocol
+    volumes:
+      - questdb_data:/var/lib/questdb
+    environment:
+      QDB_TELEMETRY_ENABLED: "false"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/status"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ── AlgoTrader ────────────────────────────────────────────────────────────
+  trader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: algo_trader
+    restart: unless-stopped
+    depends_on:
+      questdb:
+        condition: service_healthy
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs                    # structured JSON logs — host for easy access
+      # P1-FIX-33: Persist runtime state across container restarts.
+      # Without these, a container restart loses kill-switch, reconcile, and model state.
+      - trader_state:/app/state             # live_state.json, kill switch, reconcile sentinel
+      - trader_models:/app/models           # trained model artifacts (.pkl, .so, FrozenModelSpec)
+      - trader_audit:/app/state/audit       # alert audit log (write-first durable record)
+    environment:
+      # Override questdb host to use Docker service name
+      QUESTDB_HOST: questdb
+    # Only run during market hours + buffer (IST = UTC+5:30)
+    # 09:00 IST = 03:30 UTC, 16:00 IST = 10:30 UTC
+    # The orchestrator itself handles the 09:15 open and 15:30 close.
+    # Container stays up all day — orchestrator sleeps between sessions.
+
+volumes:
+  questdb_data:
+    driver: local
+  # P1-FIX-33: Named volumes for runtime state that must survive container restarts
+  trader_state:
+    driver: local
+  trader_models:
+    driver: local
+  trader_audit:
+    driver: local

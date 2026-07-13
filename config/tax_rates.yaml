@@ -1,0 +1,6 @@
+effective_date: "2025-01-01"
+stt_intraday_sell_pct: 0.025
+exchange_charge_pct: 0.00345
+sebi_fee_per_crore: 10.0
+stamp_duty_buy_pct: 0.003
+gst_pct: 18.0

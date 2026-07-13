@@ -1,0 +1,33 @@
+[Unit]
+Description=NSE AlgoTrader — Alert Sink (Telegram Dispatcher)
+Documentation=https://github.com/your-username/EXCHANGE
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=trader
+Group=trader
+WorkingDirectory=/home/trader/EXCHANGE/EXCHANGE
+
+ExecStart=/home/trader/EXCHANGE/EXCHANGE/venv/bin/python -m algo_trading.alerts.alert_sink
+
+Restart=always
+RestartSec=5
+# Alert sink should almost never die — log every restart
+StartLimitInterval=60
+StartLimitBurst=10
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=algo-trading-alert-sink
+
+EnvironmentFile=/home/trader/EXCHANGE/EXCHANGE/.env
+
+# Alert sink is lightweight — no elevated priority needed
+Nice=0
+
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

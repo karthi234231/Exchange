@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NSE AlgoTrader arch-spec",
+  "description": "JSON Schema for validating arch-spec.json. Run: python -m jsonschema schemas/arch-spec.schema.json -i arch-spec.json",
+  "type": "object",
+  "required": ["project", "hardware", "stack", "architecture", "deployment_stage", "stage_definitions", "constraints"],
+
+  "properties": {
+
+    "project": {
+      "type": "object",
+      "required": ["name", "version", "language", "target_market"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": {
+          "type": "string",
+          "pattern": "^2026-Stage-[0-4]$",
+          "description": "Must match deployment_stage — e.g. 2026-Stage-1 when deployment_stage is stage_1"
+        },
+        "language": { "type": "string" },
+        "target_market": { "type": "string" }
+      }
+    },
+
+    "hardware": {
+      "type": "object",
+      "required": ["os", "gpu", "gpu_constraint"],
+      "properties": {
+        "os": { "type": "string" },
+        "gpu": { "type": ["null", "string"] },
+        "gpu_constraint": {
+          "type": "string",
+          "pattern": "ALL_CPU_ONLY"
+        }
+      }
+    },
+
+    "stack": {
+      "type": "object",
+      "required": ["broker_primary", "data_feed", "data_storage"],
+      "properties": {
+
+        "broker_primary": {
+          "type": "object",
+          "required": ["name"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "enum": ["Shoonya (Finvasia)"],
+              "description": "Primary broker must be Shoonya — AngelOne is dev reference only"
+            },
+            "auth": {
+              "type": "string",
+              "not": {
+                "pattern": "no TOTP expiry risk",
+                "description": "Must not claim no TOTP expiry risk — sessions expire daily"
+              }
+            }
+          }
+        },
+
+        "data_feed": {
+          "type": "object",
+          "required": ["stage_1", "stage_2A", "stage_2B_and_above"],
+          "properties": {
+            "stage_1": { "type": "string" },
+            "stage_2A": { "type": "string" },
+            "stage_2B_and_above": {
+              "type": "string",
+              "pattern": "TrueData",
+              "description": "Stage 2B+ must use TrueData for unthrottled L2 feed"
+            }
+          },
+          "not": {
+            "required": ["stage_2"],
+            "properties": {
+              "stage_2": {
+                "pattern": "AngelOne",
+                "description": "stage_2 must not reference AngelOne — stale architecture"
+              }
+            }
+          }
+        },
+
+        "data_storage": {
+          "type": "object",
+          "required": ["primary"],
+          "properties": {
+            "primary": {
+              "type": "string",
+              "enum": ["QuestDB"],
+              "description": "Primary storage must be QuestDB — no SQLite for tick/trade data"
+            }
+          }
+        },
+
+        "ml_models": {
+          "type": "object",
+          "properties": {
+            "primary_ensemble": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "not": {
+                  "enum": ["TabPFN"],
+                  "description": "TabPFN is banned from production"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "deployment_stage": {
+      "type": "string",
+      "enum": ["stage_0", "stage_1", "stage_2A", "stage_2B", "stage_3", "stage_4"],
+      "description": "Current deployment stage — must be consistent with project.version"
+    },
+
+    "stage_definitions": {
+      "type": "object",
+      "required": ["stage_0", "stage_1", "stage_2A", "stage_2B", "stage_3", "stage_4"],
+      "description": "All stages must be defined"
+    },
+
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string" },
+      "contains": {
+        "pattern": "SHOONYA_PRIMARY",
+        "description": "SHOONYA_PRIMARY constraint must be present"
+      },
+      "allOf": [
+        {
+          "not": {
+            "contains": {
+              "pattern": "ANGEL_ONE_PRIMARY",
+              "description": "ANGEL_ONE_PRIMARY must not appear — Shoonya is primary"
+            }
+          }
+        },
+        {
+          "contains": {
+            "pattern": "QUESTDB_TIMESERIES_ONLY",
+            "description": "QUESTDB_TIMESERIES_ONLY constraint must be present"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+[Unit]
+Description=NSE AlgoTrader — Health Check HTTP Endpoint
+Documentation=https://github.com/your-username/EXCHANGE
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=trader
+Group=trader
+WorkingDirectory=/home/trader/EXCHANGE/EXCHANGE
+
+# Listens on port 8080 (configurable via HEALTH_CHECK_PORT env var)
+ExecStart=/home/trader/EXCHANGE/EXCHANGE/venv/bin/python health_check.py \
+    --port ${HEALTH_CHECK_PORT:-8080} \
+    --state-file state/live_state.json
+
+Restart=always
+RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=algo-trading-health
+
+EnvironmentFile=/home/trader/EXCHANGE/EXCHANGE/.env
+
+Nice=5
+
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,121 @@
+Now I have all the data. Let me compile the final verdict.                                                                 
+  #: 2
+  Source: https://github.com/BennyThadikaran/eod2
+  What You Get: Script to auto-download & update eod2_data
+  Verified Last Update: 2026-06-24
+  Stars: 151
+  Size: —
+  ────────────────────────────────────────
+  #: 3
+  Source: https://github.com/jugaad-py/jugaad-data
+  What You Get: Equity + F&O historical & live, CLI, works with new NSE website
+  Verified Last Update: 2026-03-16
+  Stars: 534
+  Size: —
+  ────────────────────────────────────────
+  #: 4
+  Source: https://github.com/RuchiTanmay/nselib
+  What You Get: NSE data library, OHLCV + delivery
+  Verified Last Update: 2026-05-01
+  Stars: 167
+  Size: —
+  ────────────────────────────────────────
+  #: 5
+  Source: https://github.com/marketcalls/openchart
+  What You Get: Intraday + EOD from NSE/NFO, multiple timeframes
+  Verified Last Update: 2026-01-16
+  Stars: 59
+  Size: —
+  ────────────────────────────────────────
+  #: 6
+  Source: https://www.kaggle.com/datasets/debashis74017/nifty-50-minute-data
+  What You Get: Nifty50 index OHLC, 6 timeframes
+  Verified Last Update: 2015–2026, weekly updated
+  Stars: —
+  Size: ~hundreds MB
+  ────────────────────────────────────────
+  #: 7
+  Source: https://www.kaggle.com/datasets/debashis74017/stock-market-data-nifty-50-stocks-1-min-data
+  What You Get: 100 individual NSE stocks, 1-min OHLCV + indicators
+  Verified Last Update: Updated 2026
+  Stars: —
+  Size: Large
+  ────────────────────────────────────────
+  #: 8
+  Source: https://www.kaggle.com/datasets/debashis74017/algo-trading-data-nifty-100-data-with-indicators
+  What You Get: 500 stocks intraday + TA indicators pre-built
+  Verified Last Update: Updated 2026
+  Stars: —
+  Size: —
+  ────────────────────────────────────────
+  #: 9
+  Source: yfinance .NS suffix
+  What You Get: All NSE stocks, 20 years daily EOD — no key, no signup
+  Verified Last Update: Always live
+  Stars: —
+  Size: —
+
+  ---
+  STATIC (Real Data, Frozen — Good for Backtesting)
+
+  #: 10
+  Source: https://www.kaggle.com/datasets/nishanthsalian/indian-stock-index-1minute-data-2008-2020
+  What You Get: Nifty + BankNifty 1-min OHLC
+  Coverage: 2008–2020 (frozen)
+  Stars: —
+  ────────────────────────────────────────
+  #: 11
+  Source: https://www.kaggle.com/datasets/debashis74017/stock-market-data-nifty-50-2000-2022
+  What You Get: Nifty50 daily 22 years
+  Coverage: 2000–2022 (frozen)
+  Stars: —
+  ────────────────────────────────────────
+  #: 12
+  Source: https://github.com/aeron7/nifty-banknifty-intraday-data
+  What You Get: ~3 GB actual 1-min CSVs Nifty + BankNifty
+  Coverage: Up to 2023-09 (frozen)
+  Stars: 91
+
+  ---
+  DEAD / BROKEN — Do NOT Use
+
+  ┌──────────────────────────────────┬───────────────────────────────────────────────────────────────────┬───────────────┐   
+  │               Repo               │                              Reason                               │  Last Real    │   
+  │                                  │                                                                   │     Push      │   
+  ├──────────────────────────────────┼───────────────────────────────────────────────────────────────────┼───────────────┤   
+  │ swapniljariwala/nsepy            │ Broken since April 2023 — NSE killed the old website it relied on │ 2023-12 (no   │   
+  │                                  │                                                                   │ fix)          │   
+  ├──────────────────────────────────┼───────────────────────────────────────────────────────────────────┼───────────────┤   
+  │ ShabbirHasan1/NSE-Data           │ No updates — data frozen in 2021                                  │ 2021-06       │   
+  ├──────────────────────────────────┼───────────────────────────────────────────────────────────────────┼───────────────┤   
+  │ riyaz-ali/bhav-copy              │ Abandoned                                                         │ 2021-05       │   
+  ├──────────────────────────────────┼───────────────────────────────────────────────────────────────────┼───────────────┤   
+  │ hemenkapadia/getbhavcopy         │ Abandoned                                                         │ 2020-01       │   
+  ├──────────────────────────────────┼───────────────────────────────────────────────────────────────────┼───────────────┤   
+  │ Ratnesh-bhosale/NIFTY500_dataset │ 3 stars, no updates                                               │ 2022-07       │   
+  ├──────────────────────────────────┼───────────────────────────────────────────────────────────────────┼───────────────┤   
+  │ debaonline4u/NSE-Data            │ Data on Google Drive (not GitHub), no update since 2024-02, Drive │ 2024-02       │   
+  │                                  │  links may be expired                                             │               │   
+  └──────────────────────────────────┴───────────────────────────────────────────────────────────────────┴───────────────┘   
+
+  ---
+  Priority Download Order for Your Algo Setup
+
+  1. eod2_data   → 2000+ stocks, 1995–now, daily EOD, ready CSVs  (best for daily backtesting)
+  2. Kaggle #6   → Nifty50 index 1m/5m/15m 2015–2026             (index strategy)
+  3. Kaggle #10  → 1-min Nifty+BankNifty 2008–2020               (deep intraday history)
+  4. Kaggle #7   → 100 stocks 1-min with indicators               (stock-level intraday)
+  5. yfinance    → Any stock, any date, daily, on demand
+  6. jugaad-data → Live feed + F&O history (pip install)
+
+  Sources:
+  - https://github.com/BennyThadikaran/eod2_data
+  - https://github.com/BennyThadikaran/eod2
+  - https://github.com/jugaad-py/jugaad-data
+  - https://github.com/RuchiTanmay/nselib
+  - https://github.com/marketcalls/openchart
+  - https://www.kaggle.com/datasets/debashis74017/nifty-50-minute-data
+  - https://www.kaggle.com/datasets/debashis74017/stock-market-data-nifty-50-stocks-1-min-data
+  - https://www.kaggle.com/datasets/nishanthsalian/indian-stock-index-1minute-data-2008-2020
+  - https://www.kaggle.com/datasets/debashis74017/algo-trading-data-nifty-100-data-with-indicators
+  - https://github.com/aeron7/nifty-banknifty-intraday-data
