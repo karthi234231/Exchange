@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # NSE AlgoTrader
 
 > CPU-Optimized Algorithmic Trading Framework for NSE India  
@@ -210,3 +211,6 @@ GitHub: https://github.com/KarthikJogii
 
 ---
 ⭐ Star the repository if you find it useful.
+=======
+# Exchange
+>>>>>>> origin/main
