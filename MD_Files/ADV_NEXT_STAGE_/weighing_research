@@ -1,0 +1,197 @@
+================================================================================
+STRATEGY WEIGHT ALLOCATION METHODS — MATHEMATICAL REFERENCE
+================================================================================
+
+1. EQUAL WEIGHT (1/N)
+   w_i = 1/N
+   REF: DeMiguel et al. (2009) "Optimal Versus Naive Diversification"
+
+
+2. SHARPE RATIO MAXIMIZATION
+   max_w  (w^T μ - r_f) / sqrt(w^T Σ w)
+   REF: Sharpe (1966) "Mutual Fund Performance"
+
+
+3. MARKOWITZ MEAN-VARIANCE
+   min_w  w^T Σ w
+   s.t.   w^T μ = μ_p
+          sum(w) = 1
+   REF: Markowitz (1952) "Portfolio Selection"
+
+
+4. GLOBAL MINIMUM VARIANCE
+   min_w  w^T Σ w
+   s.t.   sum(w) = 1
+   REF: Clarke et al. (2011) "Minimum-Variance Portfolio"
+
+
+5. RISK PARITY (EQUAL RISK CONTRIBUTION)
+   RRC_i = w_i (Σ w)_i / w^T Σ w = 1/N
+   REF: Maillard et al. (2010) "Equal Risk Contribution"
+        Roncalli (2013) "Introduction to Risk Parity"
+
+
+6. RISK BUDGETING (GENERALIZED)
+   RRC_i = w_i (Σ w)_i / w^T Σ w = b_i,  sum(b_i) = 1
+   REF: Bruder & Roncalli (2012) "Risk Budgeting"
+
+
+7. NAÏVE RISK PARITY (INVERSE VOLATILITY)
+   w_i = (1/σ_i) / sum_j (1/σ_j)
+   REF: Maillard et al. (2010) "Equal Risk Contribution"
+
+
+8. KELLY CRITERION
+   f* = argmax_f  E[log(1 + f r)]
+   For discrete outcomes: f* = (p*b - q)/b
+   REF: Kelly (1956) "A New Interpretation of Information Rate"
+        Thorp (2006) "The Kelly Criterion"
+
+
+9. FRACTIONAL KELLY
+   f_frac = α * f*,  α ∈ (0,1)
+   REF: Thorp (2006) "The Kelly Criterion"
+
+
+10. HIERARCHICAL RISK PARITY (HRP)
+    Step 1: Distance matrix
+            d_ij = sqrt(0.5 * (1 - ρ_ij))
+    Step 2: Single-linkage clustering
+    Step 3: Recursive bisection
+            α = 1 - v1/(v1+v2)
+            where v = weight variance of cluster
+    Step 4: Propagate weights down hierarchy
+    REF: López de Prado (2016) "Building Diversified Portfolios"
+
+
+11. BLACK-LITTERMAN
+    μ_BL = [(τΣ)^-1 + P^T Ω^-1 P]^-1 [(τΣ)^-1 Π + P^T Ω^-1 Q]
+    REF: Black & Litterman (1992) "Global Portfolio Optimization"
+
+
+12. REGIME-CONDITIONED DYNAMIC ALLOCATION
+    w_t = f(regime_t, performance_history_t)
+    Methods:
+    a) HMM-based switching: w_t = w_regime_k
+    b) Rolling window with regime filter: w_t = f(returns_t-window:t)
+    REF: Ang & Bekaert (2002) "Regime Switches"
+
+
+13. BAYESIAN DYNAMIC WEIGHTING
+    p(w_t | D_t) ∝ p(D_t | w_t) p(w_{t-1})
+    REF: Avramov (2002) "Bayesian Portfolio Optimization"
+
+
+14. DIVERSIFICATION RATIO MAXIMIZATION
+    max_w  (w^T σ) / sqrt(w^T Σ w)
+    REF: Choueifaty & Coignard (2008) "Diversification Ratio"
+
+
+15. CONSTRAINED OPTIMIZATION WITH:
+    - No short-selling: w_i ≥ 0
+    - Long-only: w_i ≥ 0
+    - Sector caps: sum(w_i ∈ sector_k) ≤ cap_k
+    - Max individual weight: w_i ≤ max_cap
+    - Sum to one: sum(w) = 1
+
+
+16. DYNAMIC WEIGHT UPDATE (ROLLING PERFORMANCE)
+    - Each period: w_i = f(performance_i, window)
+    - Options: 
+      a) Rolling Sharpe: w_i = Sharpe_i(t-window:t) / sum(Sharpe)
+      b) Rolling Return: w_i = Return_i(t-window:t) / sum(Return)
+      c) Rolling Sortino: w_i = Sortino_i(t-window:t) / sum(Sortino)
+    REF: Kirby & Ostdiek (2012) "It's All in the Timing"
+
+
+17. CORRELATION-PENALIZED WEIGHTING
+    Pairwise penalty: λ * ρ_ij * w_i * w_j
+    Objective: max_w  (w^T μ - λ * w^T C_penalty w)
+    REF: DeMiguel et al. (2009) "Optimal Versus Naive Diversification"
+
+
+18. ENSEMBLE STRATEGY WEIGHTING (MACHINE LEARNING)
+    - Simple average: w_i = 1/N
+    - Weighted average by performance
+    - Stacking: meta-model learns optimal weights
+    - Bayesian Model Averaging: w_i = P(model_i | data)
+    REF: Wolpert (1992) "Stacked Generalization"
+
+================================================================================
+NOTATION REFERENCE
+================================================================================
+
+Symbol    Definition
+------    ----------
+w         Weight vector (w₁, w₂, ..., w_N), sum(w) = 1
+μ         Expected return vector
+Σ         Covariance matrix
+σ_i       Volatility of strategy i
+ρ_ij      Correlation between strategy i and j
+r_f       Risk-free rate
+f*        Kelly-optimal fraction
+τ         Black-Litterman uncertainty scaling
+P         Pick matrix (views)
+Q         View returns vector
+Ω         Uncertainty matrix of views
+Π         Equilibrium risk premiums
+RRC_i     Risk contribution of strategy i
+b_i       Target risk budget of strategy i
+D_t       Data available up to time t
+v         Weight variance of cluster
+
+================================================================================
+KEY REFERENCES
+================================================================================
+
+Avramov, D. (2002). "Bayesian Portfolio Optimization"
+Black, F. & Litterman, R. (1992). "Global Portfolio Optimization"
+Bruder, B. & Roncalli, T. (2012). "Managing Risk Exposures Using the Risk Budgeting Approach"
+Choueifaty, Y. & Coignard, Y. (2008). "Toward Maximum Diversification"
+Clarke, R., de Silva, H., & Thorley, S. (2011). "Minimum-Variance Portfolio"
+DeMiguel, V., Garlappi, L., & Uppal, R. (2009). "Optimal Versus Naive Diversification"
+DeMiguel, V., Garlappi, L., Nogales, F., & Uppal, R. (2009). "A Generalized Approach to Portfolio Optimization"
+Kelly, J. (1956). "A New Interpretation of Information Rate"
+Kirby, C. & Ostdiek, B. (2012). "It's All in the Timing: Simple Active Portfolio Strategies"
+López de Prado, M. (2016). "Building Diversified Portfolios that Outperform Out of Sample"
+Maillard, S., Roncalli, T., & Teïletche, J. (2010). "The Properties of Equally Weighted Risk Contribution Portfolios"
+Markowitz, H. (1952). "Portfolio Selection"
+Roncalli, T. (2013). "Introduction to Risk Parity and Budgeting"
+Sharpe, W. (1966). "Mutual Fund Performance"
+Thorp, E. (2006). "Understanding the Kelly Criterion"
+Wolpert, D. (1992). "Stacked Generalization"
+
+================================================================================
+IMPLEMENTATION NOTES
+================================================================================
+
+1. Covariance Matrix Estimation:
+   - Sample covariance
+   - Shrinkage estimators (Ledoit-Wolf)
+   - EWMA (Exponentially Weighted Moving Average)
+   - Factor models
+
+2. Expected Return Estimation:
+   - Historical average
+   - Factor models
+   - Black-Litterman (reverse optimization)
+   - ML models
+
+3. Rebalancing Frequency:
+   - Daily
+   - Weekly
+   - Monthly
+   - Threshold-based (trigger when weights drift > threshold)
+
+4. Constraints:
+   - No short-selling: w_i ≥ 0
+   - Sum to one: sum(w) = 1
+   - Max individual weight: w_i ≤ max_cap
+   - Sector/group caps: sum(w_i ∈ group_k) ≤ cap_k
+   - Turnover constraint: sum(|w_t - w_{t-1}|) ≤ max_turnover
+
+5. Numerical Optimization Methods:
+   - Sequential Least Squares Programming (SLSQP)
+   - Interior Point
+   - Active Set
+   - Differential Evolution (non-convex)

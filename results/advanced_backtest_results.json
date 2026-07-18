@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-07-18T04:01:18.242380",
+  "data_source": "C:\\Exchange\\data\\indices",
+  "strategy": "EMA(9/21) cross baseline (intraday)",
+  "backtest_engine": "BacktestRunner (walk\u2011forward, cost model, edge gates)",
+  "total_symbols": 1,
+  "total_trades": 0,
+  "total_net_pnl": 0.0,
+  "symbols_passing_gate": 0,
+  "results": [
+    {
+      "symbol": "APOLLOHOSP",
+      "total_trades": 0,
+      "win_rate": 0.0,
+      "profit_factor": 0.0,
+      "sharpe_ratio": 0.0,
+      "max_drawdown": 0.0,
+      "total_net_pnl": 0.0,
+      "passes_edge_gate": false,
+      "gate_failures": [
+        "No trades executed"
+      ]
+    }
+  ]
+}

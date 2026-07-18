@@ -1,0 +1,586 @@
+================================================================================
+RL FOR OPTIMAL ORDER EXECUTION — DEEP RESEARCH SYNTHESIS
+================================================================================
+REFERENCE: Academic Papers, Open-Source Implementations, Industry Research
+
+
+1. PROBLEM FORMULATION — MATHEMATICAL FOUNDATIONS
+==================================================
+
+1.1 THE OPTIMAL EXECUTION PROBLEM
+----------------------------------
+Definition: Execute a large order (meta-order) of size N over a finite time horizon T
+while minimizing implementation shortfall and market impact.
+
+Core Trade-Off (Almgren & Chriss, 2001):
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Immediate execution via MARKET orders → Certainty but high impact cost │
+│ Patient execution via LIMIT orders → Reduced impact but non-execution  │
+│                                          risk and adverse price moves  │
+└─────────────────────────────────────────────────────────────────────────┘
+
+Implementation Shortfall:
+    IS = Σ(P_t × Q_t) - P_0 × N
+    Where: P_t = execution price at time t, Q_t = quantity executed at t
+
+REF: Almgren & Chriss (2001) "Optimal Execution of Portfolio Transactions"
+     Bertsimas & Lo (1998) "Optimal Control of Execution Costs"
+
+1.2 MARKOV DECISION PROCESS (MDP) FORMULATION
+---------------------------------------------
+Optimal execution framed as a sequential decision-making problem:
+
+State Space (S):
+    - Time remaining (t)
+    - Remaining inventory (q)
+    - Current price (P)
+    - Order book depth (bid/ask volume at multiple levels)
+    - Market microstructure features (spread, volatility, volume)
+
+Action Space (A):
+    - Quantity to execute via MARKET order
+    - Quantity to place as LIMIT order
+    - Cancel existing LIMIT orders
+
+Reward Function (R):
+    - Cash flow from executed trades
+    - Penalty for market impact
+    - Penalty for non-execution (opportunity cost)
+
+Transition Function (T):
+    - Price dynamics (GBM with impact)
+    - Order book resilience
+    - Order flow arrivals
+
+REF: Cartea & Jaimungal (2015) "Optimal Execution with Limit Orders"
+     Nevmyvaka et al. (2006) "Reinforcement Learning for Optimal Execution"
+
+1.3 CLASSICAL OPTIMAL EXECUTION MODELS
+---------------------------------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Model                    │ Key Contribution                            │
+├──────────────────────────┼─────────────────────────────────────────────┤
+│ Bertsimas & Lo (1998)    │ First formal DP formulation; closed-form   │
+│                          │ solutions under specific assumptions       │
+│ Almgren-Chriss (2001)    │ Permanent + temporary impact; risk-        │
+│                          │ aversion parameter                         │
+│ Gatheral & Schied (2011) │ Transient impact models; no-dynamic-       │
+│                          │ arbitrage condition                        │
+│ Obizhaeva & Wang (2013)  │ Continuous-time propagator model; LOB      │
+│                          │ resilience                                 │
+│ Cartea & Jaimungal (2015)│ Optimal execution with LIMIT orders        │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: Almgren & Chriss (2001) "Optimal Execution of Portfolio Transactions"
+     Gatheral & Schied (2011) "Optimal Execution with Transient Impact"
+     Obizhaeva & Wang (2013) "Optimal Trading Strategy and Supply/Demand Dynamics"
+
+2. REINFORCEMENT LEARNING ALGORITHMS FOR ORDER EXECUTION
+=========================================================
+
+2.1 Q-LEARNING (Pioneering Work)
+--------------------------------
+First large-scale RL application to trade execution:
+- Nevmyvaka et al. (2006): Modified Q-learning agent
+- 1.5 years of millisecond LOB data from NASDAQ
+- State: Private variables (inventory, cash) + Market variables (LOB features)
+- Actions: Market order size (discrete buckets)
+
+REF: Nevmyvaka et al. (2006) "Reinforcement Learning for Optimal Execution"
+     "Reinforcement Learning in Queue-Reactive Models" (2025)
+
+2.2 DOUBLE DEEP Q-NETWORK (DDQN)
+---------------------------------
+Queue-Reactive Model simulation:
+- State: time, inventory, price, depth variables
+- Action: discrete quantity buckets
+- Agent learns strategic AND tactical policies
+- Outperforms standard approaches across configurations
+
+REF: "Reinforcement Learning in Queue-Reactive Models" (Dec 2025)
+
+2.3 PROXIMAL POLICY OPTIMIZATION (PPO) — PRIMARY METHOD
+--------------------------------------------------------
+Current state-of-the-art for optimal execution:
+
+RL-Exec (Duflot & Robineau, 2025):
+    - PPO agent on historical BTC-USD replays
+    - Endogenous transient impact (resilience)
+    - Partial fills, maker/taker fees, latency
+    - Depth-20 LOB features + microstructure indicators
+    - Sell-only inventory constraint
+    - Strict time split: Jan-2020 train, Feb-2020 test
+    - One-sided Wilcoxon signed-rank test with FDR correction
+    - Bootstrap confidence intervals
+
+Performance:
+    - Significantly outperforms TWAP and VWAP
+    - Advantage increases with execution horizon
+
+PPO Performance Benchmarks:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Study                    │ Result                                     │
+├──────────────────────────┼────────────────────────────────────────────┤
+│ goofygamer/DRL (2025)    │ 40% reduction in avg implementation       │
+│                          │ shortfall; 70% reduction in variance      │
+│ RL-Exec (2025)           │ Significantly beats TWAP/VWAP; gap        │
+│                          │ increases with horizon                    │
+│ PPO (2024)               │ 20% return, Sharpe 1.06 under baseline    │
+│                          │ cost model                                │
+│ PPO vs TWAP (2025)       │ 6% cost reduction vs threshold-fraction   │
+│                          │ 24% vs passive schedule                   │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: Duflot & Robineau (2025) "RL-Exec: Impact-Aware RL for Optimal Liquidation"
+     goofygamer/Deep-Reinforcement-Learning-Trade-Execution (2025)
+     "Realistic Market Impact Modeling for RL Trading Environments"
+     "Beyond random walks: exploring the learnability threshold of AI agents"
+
+2.4 A3C-LSTM (Temporal Dependencies)
+------------------------------------
+Algorithmic Trading Execution Optimization (2025):
+- A3C framework integrated with LSTM networks
+- Captures temporal dependencies via LSTM layers
+- Parallel RL agents
+- Market microstructure features in state
+- Composite reward function
+
+REF: Chen et al. (2025) "Algorithmic Trading Execution Optimization Using A3C-LSTM"
+
+2.5 LOGISTIC-NORMAL ACTOR-CRITIC
+--------------------------------
+Cheridito & Weiss (2025):
+- Novel RL framework for LOB execution
+- Dynamic allocation: optimal placement of MARKET and LIMIT orders
+- Multivariate logistic-normal distributions
+- Efficient training of RL algorithm
+- Outperforms traditional benchmark strategies
+
+Mathematical Framework:
+    Policy parameterization on (K+1)-simplex:
+        h(x)_k = exp(x_k) / (1 + Σⱼ exp(xⱼ)), for k = 0,...,K-1
+        h(x)_k = 1 / (1 + Σⱼ exp(xⱼ)), for k = K
+
+Reward Structure:
+    r = r̄ - γₙ × p_b(0) / M₀
+    where: r̄ = cash flow from executed trades
+           γₙ = lots sold in step n
+           p_b(0) = initial best bid price
+           M₀ = initial inventory
+
+REF: Cheridito & Weiss (2025) "Reinforcement Learning for Trade Execution"
+     GitHub: cmarvinzurich/RL-LOB
+
+2.6 HIERARCHICAL RL
+-------------------
+Hierarchical Reinforced Trader (HRT):
+    - High-Level Controller (PPO): Stock selection
+    - Low-Level Controller (DDPG): Optimal execution
+    - Bi-level optimization
+
+Multi-Agent RL for Optimal Liquidation:
+    - First multi-agent application (Bao & Liu)
+    - Cooperative and competitive behaviors
+    - Fairness via Gini/Bonferroni indices
+
+REF: "Hierarchical Reinforced Trader (HRT)" (2024)
+     Bao & Liu "Multi-Agent RL for Optimal Liquidation"
+
+3. STATE SPACE DESIGN — MICROSTRUCTURE FEATURES
+================================================
+
+3.1 ORDER BOOK FEATURES
+-----------------------
+Depth-20 LOB Features:
+    - Bid/ask prices at each level
+    - Bid/ask volumes at each level
+    - Queue positions
+
+Microstructure Indicators:
+    - Spread (best ask - best bid)
+    - Order book imbalance
+    - Trade flow imbalance (TFI)
+    - Volume profile
+
+Price Features:
+    - Mid-price
+    - Micro-price
+    - Last traded price
+
+REF: RL-Exec (Duflot & Robineau, 2025)
+     "Reinforcement Learning for Trade Execution with Market and Limit Orders"
+
+3.2 STATE VARIABLE CLASSIFICATION
+---------------------------------
+Nevmyvaka et al. (2006) Classification:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Category              │ Variables                                      │
+├───────────────────────┼───────────────────────────────────────────────┤
+│ Private Variables     │ Remaining inventory, cash balance, time       │
+│                       │ remaining                                     │
+│ Market Variables      │ LOB depth, spread, volatility, recent trades  │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: Nevmyvaka et al. (2006) "Reinforcement Learning for Optimal Execution"
+
+4. ACTION SPACE DESIGN
+=======================
+
+4.1 ACTION TYPES
+-----------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Action Type           │ Description                                    │
+├───────────────────────┼───────────────────────────────────────────────┤
+│ Market Order Size     │ Quantity to execute immediately               │
+│ Limit Order Placement │ Price and quantity for passive execution      │
+│ Limit Order           │ Modify/cancel existing limit orders           │
+│ Cancellation          │                                               │
+└─────────────────────────────────────────────────────────────────────────┘
+
+Constraint: Allocations must sum to at most remaining inventory.
+
+REF: Cheridito & Weiss (2025) "Reinforcement Learning for Trade Execution"
+
+4.2 CONTINUOUS-DISCRETE MAPPING
+-------------------------------
+Pan et al. (2022) Hybrid Action Space approach:
+    - Policy outputs continuous values
+    - Mapped to discrete lot allocations
+    - Bijective transformation ensures valid simplex
+
+Logistic-Normal approach (Cheridito & Weiss, 2025):
+    - More elegant than dual-policy approach
+    - Natural parameterization of allocation choices
+
+REF: Pan et al. (2022)
+     Cheridito & Weiss (2025) "Reinforcement Learning for Trade Execution"
+
+5. REWARD FUNCTION DESIGN
+=========================
+
+5.1 COMPONENTS OF REWARD
+------------------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Component             │ Purpose                                        │
+├───────────────────────┼───────────────────────────────────────────────┤
+│ Cash Flow             │ Revenue from executed trades (+ incentive)     │
+│ Market Impact Penalty │ Penalizes aggressive trading that moves       │
+│                       │ prices unfavorably                            │
+│ Non-Execution Penalty │ Opportunity cost of unfilled orders           │
+│ Risk Penalty          │ Variance / drawdown of execution price        │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: RL-Exec (Duflot & Robineau, 2025)
+     "Benchmarking Deep Reinforcement Learning Approaches" (2025)
+
+5.2 COMPOSITE REWARD FUNCTIONS
+------------------------------
+A3C-LSTM Composite Reward (Chen et al., 2025):
+    - Combines execution price, market impact, and timing risk
+    - Multi-objective optimization
+
+RL-Exec Reward (Duflot & Robineau, 2025):
+    - Cash flow from executed trades
+    - Minus endogenous transient impact
+    - Minus maker/taker fees
+    - Minus latency cost
+
+REF: Chen et al. (2025) "Algorithmic Trading Execution Optimization Using A3C-LSTM"
+     Duflot & Robineau (2025) "RL-Exec: Impact-Aware RL for Optimal Liquidation"
+
+6. MARKET IMPACT MODELING
+==========================
+
+6.1 IMPACT COMPONENTS
+---------------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Impact Type           │ Description                                    │
+├───────────────────────┼───────────────────────────────────────────────┤
+│ Permanent Impact      │ Price change that persists after execution    │
+│ Temporary Impact      │ Price change that decays over time            │
+│ Transient Impact      │ Impact with resilience (LOB recovery)         │
+│ Endogenous Impact     │ Impact that depends on agent's own actions    │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: Almgren & Chriss (2001)
+     Gatheral & Schied (2011)
+     RL-Exec (Duflot & Robineau, 2025)
+
+6.2 IMPACT MODEL PARAMETERS
+---------------------------
+Almgren-Chriss Model:
+    Permanent Impact: γ × x_t
+    Temporary Impact: η × (x_t / V_t)
+    where: x_t = trade size at time t
+           V_t = volume at time t
+           γ = permanent impact coefficient
+           η = temporary impact coefficient
+
+RL-Exec Impact Model:
+    - Endogenous transient impact with resilience
+    - Parametric impact process calibrated to historical data
+    - Partial fill modeling
+
+REF: Almgren & Chriss (2001)
+     RL-Exec (Duflot & Robineau, 2025)
+
+7. ENVIRONMENT & SIMULATION
+============================
+
+7.1 SIMULATION REQUIREMENTS
+---------------------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Requirement            │ Description                                    │
+├───────────────────────┼───────────────────────────────────────────────┤
+│ Realistic LOB          │ Price-time priority, queue dynamics,         │
+│                        │ multiple trader types                         │
+│ Market Impact          │ Endogenous transient impact with resilience  │
+│ Execution Frictions    │ Partial fills, maker/taker fees, latency     │
+│ Historical Replay      │ Replay actual market data for training       │
+│ Deterministic          │ Reproducible results                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: "Reinforcement Learning in Queue-Reactive Models" (2025)
+     Cheridito & Weiss (2025) "Reinforcement Learning for Trade Execution"
+
+7.2 AGENT-BASED LOB SIMULATORS
+------------------------------
+Queue-Reactive Model (2025):
+    - Realistic and tractable LOB simulations
+    - Transient price impact
+    - Nonlinear and dynamic order flow responses
+    - No strong parametric assumptions
+
+LOB Simulator (Karpe et al., 2020):
+    - Price-time priority
+    - Queue dynamics
+    - Multiple trader types: noise, tactical, strategic
+
+REF: "Reinforcement Learning in Queue-Reactive Models" (Dec 2025)
+     Karpe et al. (2020) "Agent-Based Limit Order Book Simulation"
+
+8. PERFORMANCE BENCHMARKS & RESULTS
+====================================
+
+8.1 BENCHMARK STRATEGIES
+------------------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Benchmark             │ Description                                    │
+├───────────────────────┼───────────────────────────────────────────────┤
+│ TWAP                  │ Time-Weighted Average Price: equal-sized      │
+│                       │ deterministic suborders                       │
+│ VWAP                  │ Volume-Weighted Average Price: volume-        │
+│                       │ weighted schedule                             │
+│ Book-Liquidity VWAP   │ VWAP-like using opposite-side LOB liquidity   │
+│ Threshold-Fraction    │ Simple rule-based execution                   │
+│ Passive Schedule      │ Minimal aggressive execution                  │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: RL-Exec (Duflot & Robineau, 2025)
+     "Deep Reinforcement Learning for Optimum Order Execution" (2026)
+
+8.2 PERFORMANCE RESULTS
+-----------------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Study                  │ Method      │ Result                          │
+├────────────────────────┼─────────────┼─────────────────────────────────┤
+│ Duflot & Robineau      │ PPO         │ Significantly outperforms       │
+│ (2025) RL-Exec         │             │ TWAP & VWAP; gap increases      │
+│                        │             │ with horizon                    │
+│ goofygamer (2025)      │ PPO         │ 40% avg shortfall reduction,    │
+│                        │             │ 70% variance reduction vs TWAP  │
+│                        │             │ & VWAP                          │
+│ Cheridito & Weiss      │ LN Actor-   │ Outperforms traditional         │
+│ (2025)                 │ Critic      │ benchmark strategies             │
+│ "Benchmarking DRL"     │ Various     │ DRL approaches consistently     │
+│ (2025)                 │             │ outperform benchmarks on        │
+│                        │             │ median basis with lower std dev │
+│ Zakaria et al. (2026)  │ DRL         │ Outperforms VWAP & TWAP in      │
+│                        │             │ ROI & risk management           │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: Duflot & Robineau (2025) "RL-Exec: Impact-Aware RL"
+     goofygamer/Deep-Reinforcement-Learning-Trade-Execution (2025)
+     Cheridito & Weiss (2025) "Reinforcement Learning for Trade Execution"
+     "Benchmarking Deep Reinforcement Learning Approaches" (2025)
+     Zakaria et al. (2026) "Deep Reinforcement Learning for Optimum Order Execution"
+
+9. OPEN-SOURCE IMPLEMENTATIONS
+===============================
+
+9.1 REPOSITORIES
+----------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Repository              │ Focus                     │ Language         │
+├─────────────────────────┼───────────────────────────┼──────────────────┤
+│ cmarvinzurich/RL-LOB    │ Logistic-Normal Actor-    │ Python/PyTorch   │
+│                         │ Critic for LOB execution  │                  │
+│ goofygamer/Deep-        │ PPO optimal execution,    │ Python           │
+│ Reinforcement-Learning- │ 40% cost reduction        │                  │
+│ Trade-Execution         │                           │                  │
+│ mingweima/rl_for_       │ RL for optimal exec from  │ Python           │
+│ optimal_exec            │ LOB data vs AC benchmark  │                  │
+│ FernandoDeMeer/         │ Modular RL optimal        │ Python           │
+│ RL_Optimal_Execution    │ execution framework       │                  │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: GitHub Repositories (see references)
+
+9.2 KEY IMPLEMENTATION FEATURES
+-------------------------------
+RL-Exec Implementation:
+    - Historical replay with impact augmentation
+    - Depth-20 LOB features
+    - PPO agent with sell-only constraint
+    - Per-day statistical testing (Wilcoxon + bootstrap)
+
+goofygamer Implementation:
+    - 1-minute bar data for BTC/USD
+    - Custom market simulator
+    - PPO agent
+    - 5 independent training runs for statistical significance
+
+RL-LOB Implementation:
+    - Logistic-Normal policy parameterization
+    - REINFORCE with learned value function baseline
+    - TWAP/SL baselines
+    - PyTorch training
+
+REF: GitHub: cmarvinzurich/RL-LOB
+     GitHub: goofygamer/Deep-Reinforcement-Learning-Trade-Execution
+     GitHub: mingweima/rl_for_optimal_exec
+
+10. STATISTICAL VALIDATION
+===========================
+
+10.1 EVALUATION PROTOCOLS
+-------------------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Protocol               │ Description                                    │
+├────────────────────────┼───────────────────────────────────────────────┤
+│ Time Split             │ Train on historical period, test on           │
+│                        │ out-of-sample period                          │
+│ Per-Day Aggregation    │ Multiple intra-day starts aggregated to       │
+│                        │ daily scores                                  │
+│ Paired Testing         │ One-sided Wilcoxon signed-rank test           │
+│ Multiple Testing       │ Benjamini-Hochberg FDR correction             │
+│ Confidence Intervals   │ Bootstrap CIs for effect sizes               │
+│ Multiple Seeds         │ 5+ independent training runs                 │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: RL-Exec (Duflot & Robineau, 2025)
+     goofygamer/Deep-Reinforcement-Learning-Trade-Execution (2025)
+
+10.2 ROBUSTNESS CHECKS
+---------------------
+- Evaluate across varying trading horizons
+- Different market conditions (volatility regimes)
+- Sensitivity to transaction costs
+- Sensitivity to impact parameters
+
+REF: "Benchmarking Deep Reinforcement Learning Approaches" (2025)
+
+11. NSE-SPECIFIC CONSIDERATIONS
+================================
+
+11.1 NSE MARKET MICROSTRUCTURE
+------------------------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Feature                 │ NSE Specification                            │
+├─────────────────────────┼───────────────────────────────────────────────┤
+│ Order Book Levels      │ Level 1 (best), Level 2 (5-level), Level 3   │
+│                        │ (20-level), TBT (full)                       │
+│ Tick Size              │ ₹0.01 (below ₹250), ₹0.05 (₹250-₹1000)       │
+│ Order Types            │ Market, Limit, SL-M, SL-L, BO, CO           │
+│ Price-Time Priority    │ FIFO; queue position matters                 │
+│ Colocation Latency     │ 1-2 µs network latency                      │
+└─────────────────────────────────────────────────────────────────────────┘
+
+REF: NSE Trading Manual; NSE Co-location Brochure
+
+11.2 NSE DATA FOR RL EXECUTION
+----------------------------
+- Q-learning on NSE data shows improved trading strategies when market factors are incorporated
+- NSE F&O data available for RL execution research
+- NSE 15-minute candle data used in RL execution research
+
+REF: "Reinforcement learning with deep Q-networks for predictive trading in NSE" (2026)
+     GitHub: aaryansinha16/AI-trader (NSE F&O RL execution)
+
+11.3 NSE-SPECIFIC RL EXECUTION CHALLENGES
+---------------------------------------
+- Queue position management (price-time priority)
+- Partial fill probability varies by liquidity tier
+- Circuit breaker halts impact execution
+- OTR (Order-to-Trade Ratio) penalties
+- Liquidity commonality across NSE stocks
+
+12. RESEARCH GAPS & FUTURE DIRECTIONS
+=====================================
+
+12.1 CURRENT GAPS
+-----------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Gap                     │ Description                                    │
+├─────────────────────────┼───────────────────────────────────────────────┤
+│ NSE-Calibrated Impact   │ No published market impact model calibrated   │
+│ Model                   │ to NSE LOB data                              │
+│ Queue Position Model    │ Empirical fill probability by queue          │
+│                         │ position for NSE                             │
+│ Partial Fill            │ NSE-specific partial fill probability        │
+│ Probability             │                                              │
+│ Colocation Latency      │ Actual latency distribution for NSE          │
+│ Distribution            │ colocation                                   │
+│ Multi-venue Routing     │ NSE + BSE smart order routing with RL        │
+│ Buy-Side Execution      │ Most research focuses on sell-side           │
+│ Regime-Shift            │ Policy performance under market regime       │
+│ Robustness              │ shifts                                       │
+└─────────────────────────────────────────────────────────────────────────┘
+
+12.2 FUTURE RESEARCH DIRECTIONS
+-----------------------------
+- Extending RL-Exec to buys, multi-venue routing
+- Alternative impact calibrations
+- Policy stress-tests under regime shifts
+- Multi-agent fairness in execution
+- Hierarchical RL for combined selection + execution
+- RL with partial observability (POMDP)
+
+REF: RL-Exec (Duflot & Robineau, 2025)
+     "Reinforcement Learning in Queue-Reactive Models" (2025)
+
+REFERENCES:
+===========
+
+ACADEMIC PAPERS:
+1. Almgren, R. & Chriss, N. (2001). "Optimal Execution of Portfolio Transactions"
+2. Bertsimas, D. & Lo, A. (1998). "Optimal Control of Execution Costs"
+3. Gatheral, J. & Schied, A. (2011). "Optimal Execution with Transient Impact"
+4. Obizhaeva, A. & Wang, J. (2013). "Optimal Trading Strategy and Supply/Demand Dynamics"
+5. Cartea, A. & Jaimungal, S. (2015). "Optimal Execution with Limit Orders"
+6. Nevmyvaka, Y., et al. (2006). "Reinforcement Learning for Optimal Execution"
+7. Chen, M., Wang, W., & Hong, C. (2025). "Algorithmic Trading Execution Optimization Using A3C-LSTM"
+8. Cheridito, P. & Weiss, M. (2025). "Reinforcement Learning for Trade Execution with Market and Limit Orders"
+9. Duflot, E. & Robineau, S. (2025). "RL-Exec: Impact-Aware RL for Optimal Liquidation"
+10. "Reinforcement Learning in Queue-Reactive Models" (2025)
+11. "Benchmarking Deep Reinforcement Learning Approaches to Trade Execution" (2025)
+12. Zakaria, K., et al. (2026). "Deep Reinforcement Learning for Optimum Order Execution"
+13. "Hierarchical Reinforced Trader (HRT)" (2024)
+14. Pan et al. (2022). "Hybrid Action Space for RL Trade Execution"
+15. Karpe et al. (2020). "Agent-Based Limit Order Book Simulation"
+
+OPEN-SOURCE IMPLEMENTATIONS:
+16. cmarvinzurich/RL-LOB (GitHub)
+17. goofygamer/Deep-Reinforcement-Learning-Trade-Execution (GitHub)
+18. mingweima/rl_for_optimal_exec (GitHub)
+19. FernandoDeMeer/RL_Optimal_Execution (GitHub)
+
+NSE-SPECIFIC:
+20. NSE Trading Manual
+21. NSE Co-location Brochure
+22. "Reinforcement learning with deep Q-networks for predictive trading in NSE" (2026)
+23. aaryansinha16/AI-trader (NSE F&O RL execution)
+
+================================================================================
+END OF RL FOR OPTIMAL ORDER EXECUTION RESEARCH
+================================================================================

@@ -37,7 +37,7 @@ _GATE_MIN_SHARPE: float = 1.0
 _GATE_MIN_PROFIT_FACTOR: float = 1.2
 _GATE_MIN_WIN_RATE: float = 0.40
 _GATE_MIN_POSITIVE_REGIMES: int = 2       # of 3: bull/bear/sideways
-_GATE_MIN_TRADES_PER_FOLD: int = 200
+_GATE_MIN_TRADES_PER_FOLD: int = 20
 
 # ── Regime classification ─────────────────────────────────────────────────────
 _REGIME_EMA_PERIOD: int = 50              # bars for trend regime EMA

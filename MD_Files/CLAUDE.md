@@ -230,7 +230,7 @@ algo_trading/
   - Per-order: max 5 modifications per Order ID before forced cancel + symbol halt
   - Call `release_order(order_id)` on every FILLED/CANCELLED/REJECTED event
 - Partial fill threshold: if order_qty > 20% of visible depth → cancel remainder [SURV-3]
-- All orders must carry broker-assigned Strategy ID (SEBI algo framework — register with your broker before live trading; exact implementation timelines vary by exchange/broker, confirm current status before going live)
+- All orders must carry broker-assigned Strategy ID (SEBI algo framework — register with your broker before live trading; exact implementation timelines vary by exchange/broker, confirm current status before going live)i 
 - Daily session auto-logout before market pre-open
 - On startup: run StartupReconciler BEFORE placing any order [SURV-6]
 
